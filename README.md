@@ -1,0 +1,55 @@
+# vue-vite-cesium-demo
+[中文](./README.md) / [English](./README-EN.md)
+
+本demo项目使用Vue.js（v3.0）、Vite、Cesium.js进行开发，解决了市面上没有这几个框架同时出现的痛点。本项目有大量现成的解决方案，可根据自己情况使用，在使用之前请阅读并遵循LICENSE协议。
+## 项目包含一下功能
+  -  1、生成大量节点；
+  -  2、卫星与探测区域展示；
+  -  3、可视域分析；
+  -  4、通视度分析；
+  -  5、加载geojson；
+  -  6、地形展示；
+  -  7、高危报警功能；
+  -  8、地面雷达展示；
+  -  9、地图动态通联展示；
+  -  10、菲涅尔区展示；
+  -  11、对空雷达区域展示；
+  -  12、天气展示：雨、雪、雾；
+  -  13、实时绘制飞机飞行轨迹（直飞、绕飞、盘旋）；
+  -  14、接合rtsp视频推流软件，实现无人机侦察视频实时传输图像。
+
+## Demo结构
+  - public
+  - > czmls
+  - > geojson
+  - > models
+  - > plugins
+  - > Tilesets
+  - > setting.js
+  - src
+  - > assets
+  - > cesiumUtils
+  - > components
+  - > mocks
+  - > styles
+  - > App.vue
+  - > main.js
+### cesiumUtils:
+请重点关注该文件夹，提供本demo的大量工具函数。
+### 项目运行
+使用npm（也可以使用yarn）进行项目依赖安装。进入项目根目录运行下列代码：
+```bash
+npm install or yarn
+npm run dev
+```
+### RTSP项目运行说明
+本项目使用开源的WEB RTSP视频推流方案，解压缩```rtsp.zip```文件（我放在D盘），按照```rtsp播放文档.doc```说明安装和部署。关注```setting.js```进行协议端口配置。
+### 说明
+本项目的代码，大部分为自创（70%以上），也有少部分代码借鉴他人，如有侵权问题，请联系删除。
+### 代码滞销，帮帮我！！！
+可以的话，高抬贵手，献出您的爱心，为人类开源事业做出一点贡献，手留余香。
+#### 微信：
+![微信](./public/wechatpay.jpg)
+#### 支付宝：
+![支付宝](./public/alipay.jpg)
+
