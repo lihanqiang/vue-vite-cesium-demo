@@ -23,6 +23,7 @@
     "sass": "^1.42.0",
     "ssh2-sftp-client": "^7.0.4",
     "vite": "^2.5.10",
+    "vite-babel-plugin": "0.0.2",
     "vite-plugin-cesium": "^1.2.10"
   }
 }

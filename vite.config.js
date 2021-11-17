@@ -2,6 +2,7 @@ import { defineConfig } from 'vite'
 import { resolve } from 'path'
 import vue from '@vitejs/plugin-vue'
 import cesium from 'vite-plugin-cesium'
+import babel from 'vite-babel-plugin'
 
 const { geoserverHost } = require('./public/setting')
 
@@ -10,7 +11,7 @@ export default defineConfig(({ mode }) => {
   const isDev = mode === 'development'
   const proxyHost = isDev ? 'http://localhost:9999/' : geoserverHost
   return {
-    plugins: [vue(), cesium()],
+    plugins: [vue(), cesium(), babel()],
     base: './',
     sourcemap: isDev,
     resolve: {
