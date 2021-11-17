@@ -53,7 +53,8 @@ npm run dev or yarn run dev
 ### 代码滞销，帮帮我！！！
 可以的话，高抬贵手，献出您的爱心，为人类开源事业做出一点贡献，手留余香。
 #### 微信：
-![微信](https://i.ibb.co/zVfF7Jg/wechatpay.jpg)
+<img src="https://i.ibb.co/zVfF7Jg/wechatpay.jpg" width="50%" alt="微信" />
+
 #### 支付宝：
-![支付宝](https://i.ibb.co/Gk8kDd5/alipay.jpg)
+<img src="https://i.ibb.co/Gk8kDd5/alipay.jpg" width="50%" alt="支付宝" />
 

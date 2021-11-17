@@ -22,7 +22,7 @@ A simple webgis demo with Vue.js(v3.x), Vite and Cesium.js. You are welcomed to 
   ### cesiumUtils:
   CesiumUtils dictionary is obviously significant for this demo, which contains important logics and codes to reach the functions. 
   ## Initiate the demo
-  Use npm or yarn tool to build the app dependencies, enter the app root dictionary and run commands below, and you'll see at the browser with website ```localhost:9999```.
+  Use npm or yarn tool to build the app dependencies, enter the app root dictionary and run commands below, and you'll see in the browser at website ```localhost:9999```.
   ```bash
   npm install or yarn
   npm run dev or yarn run dev
@@ -35,12 +35,8 @@ A simple webgis demo with Vue.js(v3.x), Vite and Cesium.js. You are welcomed to 
   code：amts
 
   ## donation for this demo
-  It took a lot of time and energy to finish this demo. If this demo helps you, you may buy me a coffee.
+  It took a lot of time and energy to finish this demo. If this demo helps you, you may buy me a coffee &#x1F92B;.
 
-  ### wechat:
-  ![wechat](https://i.ibb.co/zVfF7Jg/wechatpay.jpg)
-  ### alipay:
-  ![alipay](https://i.ibb.co/Gk8kDd5/alipay.jpg)
   ### unionpay:
   > account: 6229100049542905
 
