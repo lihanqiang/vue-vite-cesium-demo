@@ -22,7 +22,7 @@ A simple webgis demo with Vue.js(v3.x), Vite and Cesium.js. You are welcomed to 
   ### cesiumUtils:
   CesiumUtils dictionary is obviously significant for this demo, which contains important logics and codes to reach the functions. 
   ## Initiate the demo
-  Use npm or yarn tool to build the app dependencies, enter the app root dictionary and run commands below, and you'll see in the browser at website ```localhost:9999```.
+  Use npm or yarn tool to build the app dependencies, enter the app root dictionary and run commands below, and you'll see it in the browser at website ```localhost:9999```.
   ```bash
   npm install or yarn
   npm run dev or yarn run dev
@@ -30,7 +30,7 @@ A simple webgis demo with Vue.js(v3.x), Vite and Cesium.js. You are welcomed to 
   ## About RTSP
   In this demo, RTSP is used to achieve real-time video flow pushing, download the file and run the app.
 
-  link：https://pan.baidu.com/s/1hF95r16J3IbRfRhSdnv6kQ 
+  download link：https://pan.baidu.com/s/1hF95r16J3IbRfRhSdnv6kQ 
 
   code：amts
 
