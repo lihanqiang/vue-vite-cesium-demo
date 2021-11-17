@@ -20,15 +20,23 @@ A simple webgis demo with Vue.js(v3.x), Vite and Cesium.js. You are welcomed to 
   - > App.vue
   - > main.js
   ### cesiumUtils:
-  CesiumUtils is obviously significant for this demo, it contains import logics and codes to reach the functions. 
+  CesiumUtils dictionary is obviously significant for this demo, which contains important logics and codes to reach the functions. 
   ## Initiate the demo
-  use npm or yarn tools to build the app dependencies, enter the app root dictionary and run commands below, and you'll see at the browser with website ```localhost:9999```.
+  Use npm or yarn tool to build the app dependencies, enter the app root dictionary and run commands below, and you'll see at the browser with website ```localhost:9999```.
   ```bash
   npm install or yarn
-  npm run dev
+  npm run dev or yarn run dev
   ```
+  ## About RTSP
+  In this demo, RTSP is used to achieve real-time video flow pushing, download the file and run the app.
+
+  link：https://pan.baidu.com/s/1hF95r16J3IbRfRhSdnv6kQ 
+
+  code：amts
+
   ## donation for this demo
-  It took a lot of time and energy to finish this demo. If this demo helps you, you may help me.
+  It took a lot of time and energy to finish this demo. If this demo helps you, you may buy me a coffee.
+
   ### wechat:
   ![wechat](https://i.ibb.co/zVfF7Jg/wechatpay.jpg)
   ### alipay:

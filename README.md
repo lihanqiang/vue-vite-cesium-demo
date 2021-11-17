@@ -40,7 +40,7 @@
 使用npm（也可以使用yarn）进行项目依赖安装。进入项目根目录运行下列代码：
 ```bash
 npm install or yarn
-npm run dev
+npm run dev or yarn run dev
 ```
 ### RTSP项目运行说明
 本项目使用开源的WEB RTSP视频推流方案，下载解压缩你在网络上下载的视频推流软件，按照说明安装和部署。关注```setting.js```进行协议端口配置。也可按照我的RTSP方案进行配置：
