@@ -18,9 +18,9 @@
   -  13、实时绘制飞机飞行轨迹（直飞、绕飞、盘旋）；
   -  14、接合rtsp视频推流软件，实现无人机侦察视频实时传输图像。
 ## 预览
-<img src="https://i.ibb.co/gRd2PWW/20211118134257.png" width="50%" alt="preview" />
+<img src="https://i.ibb.co/yn50yz5/earth.jpg" width="50%" alt="preview" />
 
-<img src="https://i.ibb.co/Q95Q13t/xxxx.png" width="50%" alt="preview" />
+<img src="https://i.ibb.co/HFgPbFB/pushing.jpg" width="50%" alt="preview" />
 
 ## Demo结构
   - public

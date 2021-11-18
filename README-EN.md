@@ -3,9 +3,9 @@
 
 A simple webgis demo with Vue.js(v3.x), Vite and Cesium.js. You are welcomed to report bugs at any time, also you can contribute you own codes. 
 ## Preview
-<img src="https://i.ibb.co/gRd2PWW/20211118134257.png" width="50%" alt="preview" />
+<img src="https://i.ibb.co/yn50yz5/earth.jpg" width="50%" alt="preview" />
 
-<img src="https://i.ibb.co/Q95Q13t/xxxx.png" width="50%" alt="preview" />
+<img src="https://i.ibb.co/HFgPbFB/pushing.jpg" width="50%" alt="preview" />
 
 ## Demo strcuture
   - public
