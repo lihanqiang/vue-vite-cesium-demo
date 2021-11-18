@@ -17,6 +17,10 @@
   -  12、天气展示：雨、雪、雾；
   -  13、实时绘制飞机飞行轨迹（直飞、绕飞、盘旋）；
   -  14、接合rtsp视频推流软件，实现无人机侦察视频实时传输图像。
+## 预览
+<img src="https://i.ibb.co/gRd2PWW/20211118134257.png" width="50%" alt="preview" />
+
+<img src="https://i.ibb.co/Q95Q13t/xxxx.png" width="50%" alt="preview" />
 
 ## Demo结构
   - public
@@ -53,8 +57,8 @@ npm run dev or yarn run dev
 ### 代码滞销，帮帮我！！！
 可以的话，高抬贵手，献出您的爱心，为人类开源事业做出一点贡献，手留余香。
 #### 微信：
-<img src="https://i.ibb.co/zVfF7Jg/wechatpay.jpg" width="50%" alt="微信" />
+<img src="https://i.ibb.co/MPFtYG8/2021-11-18-135014-QQ.png" width="50%" alt="微信" />
 
 #### 支付宝：
-<img src="https://i.ibb.co/Gk8kDd5/alipay.jpg" width="50%" alt="支付宝" />
+<img src="https://i.ibb.co/YdfZFw6/2021-11-18-134709.png" width="50%" alt="支付宝" />
 
