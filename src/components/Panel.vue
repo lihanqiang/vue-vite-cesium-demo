@@ -75,6 +75,10 @@ const btns = reactive([
       {
         id: 'radarDynamic',
         label: '对空雷达'
+      },
+      {
+        id: 'riverFlood',
+        label: '河流淹没'
       }
     ]
   },
