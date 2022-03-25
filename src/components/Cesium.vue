@@ -41,6 +41,7 @@ import gerateSatelliteLines from '@/mocks/satellitePath'
 import { initVedeo, toggleVideo } from '@/cesiumUtils/rtsp'
 import { analysisVisible, clearLine } from '@/cesiumUtils/visionAnalysis'
 import { setRiverFlood } from '@/cesiumUtils/riverFlood'
+import { setRiverDynamic } from '@/cesiumUtils/riverDynamic'
 import Measure from '@/cesiumUtils/cesiumMeasure'
 import Panel from '@/components/Panel.vue'
 
@@ -311,6 +312,11 @@ const btnClickHandler = (btn) => {
     case 'riverFlood': {
       back2Home()
       setRiverFlood(viewer3D, active)
+      break
+    }
+    case 'riverDynamic': {
+      back2Home()
+      setRiverDynamic(viewer3D, active)
       break
     }
     default: break

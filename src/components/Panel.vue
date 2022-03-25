@@ -79,6 +79,10 @@ const btns = reactive([
       {
         id: 'riverFlood',
         label: '河流淹没'
+      },
+      {
+        id: 'riverDynamic',
+        label: '动态河流'
       }
     ]
   },

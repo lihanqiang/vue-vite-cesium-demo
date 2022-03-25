@@ -7,6 +7,7 @@ export const setRiverFlood = (viewer, active) => {
       duration: 1.6
     })
     let waterH = 270
+    let x = 1
     viewer.scene.globe.depthTestAgainstTerrain = true
     viewer.entities.add({
       id: 'riverFlood',
@@ -17,13 +18,16 @@ export const setRiverFlood = (viewer, active) => {
         semiMajorAxis: 10000,
         height: 0,
         extrudedHeight: new Cesium.CallbackProperty(() => {
-          waterH += 0.15
+          waterH += 0.15 * x
           if (waterH > 310) {
-            waterH = 270
+            x = -1
+          }
+          if (waterH < 270) {
+            x = 1
           }
           return waterH
         }, false), // 多边形凸出面高度
-        material: Cesium.Color.BLUE.withAlpha(0.4)
+        material: Cesium.Color.BLUE.withAlpha(0.3)
       }
     })
   } else {
