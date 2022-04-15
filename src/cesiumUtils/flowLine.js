@@ -2,9 +2,11 @@
 import Cesium from '@/cesiumUtils/cesium'
 import img from '@/assets/redLine.png'
 export default class PolylineTrailLinkMaterialProperty {
-  constructor (duration, d) {
+  constructor (duration, d ,image ,color) {
     this._definitionChanged = new Cesium.Event()
     this._color = undefined
+    this.color = color || Cesium.Color.WHITE
+    this.image = image
     this._colorSubscription = undefined
     this.duration = duration || 3000
     this._time = (new Date()).getTime()
@@ -22,7 +24,7 @@ export default class PolylineTrailLinkMaterialProperty {
     if (!Cesium.defined(result)) {
       result = {}
     }
-    result.color = Cesium.Property.getValueOrClonedDefault(this._color, time, Cesium.Color.WHITE, result.color)
+    result.color = Cesium.Property.getValueOrClonedDefault(this._color, time,this.color, result.color)
     result.image = Cesium.Material.PolylineTrailLinkImage
     result.time = (((new Date()).getTime() - this._time) % this.duration) / this.duration * this._d
     return result
@@ -51,7 +53,7 @@ export default class PolylineTrailLinkMaterialProperty {
   init () {
     Cesium.PolylineTrailLinkMaterialProperty = PolylineTrailLinkMaterialProperty
     Cesium.Material.PolylineTrailLinkType = 'PolylineTrailLink'
-    Cesium.Material.PolylineTrailLinkImage = img
+    Cesium.Material.PolylineTrailLinkImage = this.image || img
     Cesium.Material.PolylineTrailLinkSource = `czm_material czm_getMaterial(czm_materialInput materialInput)
       {
           czm_material material = czm_getDefaultMaterial(materialInput);
