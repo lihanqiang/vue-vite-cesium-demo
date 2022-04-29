@@ -8,7 +8,7 @@ A simple webgis demo with Vue.js(v3.x), Vite and Cesium.js. You are welcomed to 
 
 <img src="https://i.ibb.co/HFgPbFB/pushing.jpg" width="50%" alt="preview" />
 
-<img src="https://i.ibb.co/dQXNKMv/2022-04-29-141557.png" width="50%" alt="preview" />
+<img src="https://i.ibb.co/x6KKxVn/jietu.png" width="50%" alt="preview" />
 
 ## Demo strcuture
   - public
