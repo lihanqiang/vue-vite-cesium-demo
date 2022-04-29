@@ -22,6 +22,7 @@ import Cesium from '@/cesiumUtils/cesium'
 import play from '@/assets/play.png'
 import { initCesium } from '@/cesiumUtils/initCesium'
 import '@/cesiumUtils/flowLine'
+import '@/cesiumUtils/wallDiffuse'
 import { setRain, setSnow, setFog } from '@/cesiumUtils/cesiumEffects'
 import SatRoaming from '@/cesiumUtils/satelliteRoaming'
 import { setScan } from '@/cesiumUtils/scan'
@@ -37,6 +38,7 @@ import ImportPlane from '@/cesiumUtils/importPlane'
 import DrawLines from '@/cesiumUtils/drawLines'
 import { drawLinesAndAirplane, settleBaseRadarCarRadio, destoryDrone } from '@/cesiumUtils/planeRoam'
 import { addGeojson, removeGeojson } from '@/cesiumUtils/addGeojson'
+import { WallRegularDiffuse, removeWall } from '@/cesiumUtils/wallRegularDiffuse'
 import gerateSatelliteLines from '@/mocks/satellitePath'
 import { initVedeo, toggleVideo } from '@/cesiumUtils/rtsp'
 import { analysisVisible, clearLine } from '@/cesiumUtils/visionAnalysis'
@@ -190,6 +192,38 @@ const btnClickHandler = (btn) => {
       }, () => {
         back2Home()
         removeGeojson(viewer3D)
+      })
+      break
+    }
+    case 'spreadWall': {
+      // 打开geojson更能看出效果
+      caller(active, () => {
+        const viewPosition = [116.390646, 39.9126084]
+        viewer3D.camera.flyTo({
+          destination: Cesium.Cartesian3.fromDegrees(
+            viewPosition[0], viewPosition[1] - 0.04,
+            1000
+          ),
+          orientation: {
+          // 指向
+            heading: Cesium.Math.toRadians(0, 0),
+            // 视角
+            pitch: Cesium.Math.toRadians(-20),
+            roll: 0.0
+          }
+        })
+        WallRegularDiffuse({
+          viewer: viewer3D,
+          center: viewPosition,
+          radius: 400.0,
+          edge: 50,
+          height: 50.0,
+          speed: 15,
+          minRidus: 100
+        })
+      }, () => {
+        back2Home()
+        removeWall(viewer3D)
       })
       break
     }

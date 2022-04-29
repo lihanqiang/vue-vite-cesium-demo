@@ -49,6 +49,10 @@ const btns = reactive([
         label: '通视度分析'
       },
       {
+        id: 'spreadWall',
+        label: '扩散墙'
+      },
+      {
         id: 'geojson',
         label: '加载geojson'
       },
