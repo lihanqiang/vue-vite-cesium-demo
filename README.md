@@ -23,6 +23,8 @@
 
 <img src="https://i.ibb.co/HFgPbFB/pushing.jpg" width="50%" alt="preview" />
 
+<img src="https://i.ibb.co/dQXNKMv/2022-04-29-141557.png" width="50%" alt="preview" />
+
 ## Demo结构
   - public
   - > czmls
