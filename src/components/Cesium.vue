@@ -22,6 +22,7 @@ import Cesium from '@/cesiumUtils/cesium'
 import play from '@/assets/play.png'
 import { initCesium } from '@/cesiumUtils/initCesium'
 import '@/cesiumUtils/flowLine'
+import '@/cesiumUtils/waveMaterial'
 import { setRain, setSnow, setFog } from '@/cesiumUtils/cesiumEffects'
 import SatRoaming from '@/cesiumUtils/satelliteRoaming'
 import { setScan } from '@/cesiumUtils/scan'
@@ -42,6 +43,7 @@ import { initVedeo, toggleVideo } from '@/cesiumUtils/rtsp'
 import { analysisVisible, clearLine } from '@/cesiumUtils/visionAnalysis'
 import { setRiverFlood } from '@/cesiumUtils/riverFlood'
 import { setRiverDynamic } from '@/cesiumUtils/riverDynamic'
+import { setTrackPlane } from '@/cesiumUtils/trackPalne'
 import Measure from '@/cesiumUtils/cesiumMeasure'
 import Panel from '@/components/Panel.vue'
 
@@ -198,7 +200,7 @@ const btnClickHandler = (btn) => {
         viewer3D.camera.flyTo({
           destination: Cesium.Cartesian3.fromDegrees(99.5, 25.2, 10000),
           orientation: {
-          // 指向
+            // 指向
             heading: Cesium.Math.toRadians(0, 0),
             // 视角
             pitch: Cesium.Math.toRadians(-25),
@@ -317,6 +319,11 @@ const btnClickHandler = (btn) => {
     case 'riverDynamic': {
       back2Home()
       setRiverDynamic(viewer3D, active)
+      break
+    }
+    case 'trackPlane': {
+      back2Home()
+      setTrackPlane(viewer3D, active)
       break
     }
     default: break
