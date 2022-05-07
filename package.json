@@ -5,7 +5,7 @@
     "dev": "vite --mode development ",
     "build-dev": "vite build --mode development ",
     "build": "vite build --mode production",
-    "upload": "npm run build && node upload.js"
+    "upload": "npm run build"
   },
   "dependencies": {
     "cesium": "^1.85.0",
