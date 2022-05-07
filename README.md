@@ -28,6 +28,9 @@
 
 <img src="https://i.ibb.co/x6KKxVn/jietu.png" width="50%" alt="preview" />
 
+## 在线网站
+[https://lihanqiang.github.io/vue-vite-cesium-demo/](https://lihanqiang.github.io/vue-vite-cesium-demo/)
+
 ## Demo结构
   - public
   - > czmls

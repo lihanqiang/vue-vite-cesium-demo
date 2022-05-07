@@ -10,6 +10,9 @@ A simple webgis demo with Vue.js(v3.x), Vite and Cesium.js. You are welcomed to 
 
 <img src="https://i.ibb.co/x6KKxVn/jietu.png" width="50%" alt="preview" />
 
+## ONLINE SITE
+[https://lihanqiang.github.io/vue-vite-cesium-demo/](https://lihanqiang.github.io/vue-vite-cesium-demo/)
+
 ## Demo strcuture
   - public
   - > czmls
