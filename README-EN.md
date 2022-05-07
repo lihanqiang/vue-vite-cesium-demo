@@ -56,11 +56,4 @@ A simple webgis demo with Vue.js(v3.x), Vite and Cesium.js. You are welcomed to 
 
   code：amts
 
-  ## donation for this demo
-  It took a lot of time and energy to finish this demo. If this demo helps you, you may buy me a coffee &#x1F92B;.
-
-  ### unionpay:
-  > account: 6229100049542905
-
-  > name: 李X强
 
