@@ -87,6 +87,10 @@ const btns = reactive([
       {
         id: 'riverDynamic',
         label: '动态河流'
+      },
+      {
+        id: 'trackPlane',
+        label: '追踪扫描'
       }
     ]
   },
