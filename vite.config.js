@@ -12,7 +12,7 @@ export default defineConfig(({ mode }) => {
   const proxyHost = isDev ? 'http://localhost:9999/' : geoserverHost
   return {
     plugins: [vue(), cesium(), babel()],
-    base: './',
+    base: '/',
     sourcemap: isDev,
     resolve: {
       alias: {
