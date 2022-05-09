@@ -88,7 +88,7 @@ const back2Home = () => {
 
 const setPlanePath = (viewer, arr, pos, addr) => {
   const plane = new ImportPlane(viewer, {
-    uri: '/models/CesiumAir.glb',
+    uri: '/src/assets/models/CesiumAir.glb',
     position: arr,
     addr,
     arrPos: pos,
@@ -145,7 +145,7 @@ const btnClickHandler = (btn) => {
       caller(active, () => {
         back2Home()
         sat = new SatRoaming(viewer3D, {
-          uri: `/models/Satellite.glb`,
+          uri: `/src/assets/models/Satellite.glb`,
           Lines: gerateSatelliteLines(0, 0)
         })
       }, () => {

@@ -5,7 +5,7 @@ const viewPosition = [116.388404, 39.8960601]
 let geojson
 
 export const addGeojson = async(viewer) => {
-  geojson = await Cesium.GeoJsonDataSource.load('/geojson/gugong.geojson', {
+  geojson = await Cesium.GeoJsonDataSource.load('/src/assets/geojson/gugong.geojson', {
     stroke: Cesium.Color.WHITE,
     fill: Cesium.Color.BLUE.withAlpha(0.3), // 注意：颜色必须大写，即不能为blue
     strokeWidth: 5
