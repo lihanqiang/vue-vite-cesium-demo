@@ -187,7 +187,7 @@ export default class ViewShed {
   // 加载三维模型
   addTileSet() {
     const tileset = this.viewer.scene.primitives.add(new Cesium.Cesium3DTileset({
-      url: '/src/assets/Tilesets/Tileset/tileset.json'
+      url: new URL(`../assets/Tilesets/Tileset/tileset.json`, import.meta.url).href
     }))
 
     // tileset.readyPromise.then((tl) => {
