@@ -28,16 +28,15 @@
 
 <img src="https://i.ibb.co/x6KKxVn/jietu.png" width="50%" alt="preview" />
 
+<img src="https://i.ibb.co/7SwqVKK/xxx.png" width="50%" alt="preview" />
+
+<img src="https://i.ibb.co/yPCcMwp/yyy.png" width="50%" alt="preview" />
+
 ## 在线网站
 [https://lihanqiang.github.io/vue-vite-cesium-demo/](https://lihanqiang.github.io/vue-vite-cesium-demo/)
 
 ## Demo结构
   - public
-  - > czmls
-  - > geojson
-  - > models
-  - > plugins
-  - > Tilesets
   - > setting.js
   - src
   - > assets
@@ -64,10 +63,10 @@ npm run dev or yarn run dev
     at Process.ChildProcess._handle.onexit (node:internal/child_process:288:12)
     at onErrorNT (node:internal/child_process:477:16)
     at processTicksAndRejections (node:internal/process/task_queues:83:21) {
-  errno: -4058,
-  path: 'H:\node_modules\\esbuild\\esbuild.exe',
-  spawnargs: [ '--service=0.12.9', '--ping' ]
-}
+    errno: -4058,
+    path: 'H:\node_modules\\esbuild\\esbuild.exe',
+    spawnargs: [ '--service=0.12.9', '--ping' ]
+  }
   ```
 ### RTSP项目运行说明
 本项目使用开源的WEB RTSP视频推流方案，下载解压缩你在网络上下载的视频推流软件，按照说明安装和部署。关注```setting.js```进行协议端口配置。也可按照我的RTSP方案进行配置：

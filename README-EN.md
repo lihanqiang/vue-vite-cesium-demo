@@ -10,16 +10,15 @@ A simple webgis demo with Vue.js(v3.x), Vite and Cesium.js. You are welcomed to 
 
 <img src="https://i.ibb.co/x6KKxVn/jietu.png" width="50%" alt="preview" />
 
+<img src="https://i.ibb.co/7SwqVKK/xxx.png" width="50%" alt="preview" />
+
+<img src="https://i.ibb.co/yPCcMwp/yyy.png" width="50%" alt="preview" />
+
 ## ONLINE SITE
 [https://lihanqiang.github.io/vue-vite-cesium-demo/](https://lihanqiang.github.io/vue-vite-cesium-demo/)
 
 ## Demo strcuture
   - public
-  - > czmls
-  - > geojson
-  - > models
-  - > plugins
-  - > Tilesets
   - > setting.js
   - src
   - > assets
@@ -46,10 +45,10 @@ A simple webgis demo with Vue.js(v3.x), Vite and Cesium.js. You are welcomed to 
     at Process.ChildProcess._handle.onexit (node:internal/child_process:288:12)
     at onErrorNT (node:internal/child_process:477:16)
     at processTicksAndRejections (node:internal/process/task_queues:83:21) {
-  errno: -4058,
-  path: 'H:\node_modules\\esbuild\\esbuild.exe',
-  spawnargs: [ '--service=0.12.9', '--ping' ]
-}
+    errno: -4058,
+    path: 'H:\node_modules\\esbuild\\esbuild.exe',
+    spawnargs: [ '--service=0.12.9', '--ping' ]
+  }
   ```
   
   ## About RTSP
