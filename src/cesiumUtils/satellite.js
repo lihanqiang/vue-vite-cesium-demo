@@ -10,7 +10,7 @@ export const setSatellite = (viewer) => {
   new ImportModel(
     viewer,
     {
-      uri: '/models/Satellite.glb',
+      uri: new URL('../../../public/models/Satellite.glb', import.meta.url).href,
       position: [89, 0, 700000],
       conf: {
         id: 'sat',

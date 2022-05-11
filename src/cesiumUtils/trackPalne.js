@@ -108,7 +108,7 @@ export const setTrackPlane = (viewer, active) => {
         return endPoint
       }, false),
       model: {
-        uri: '/models/CesiumAir.glb',
+        uri: new URL('../../../public/models/CesiumAir.glb', import.meta.url).href,
         scale: 2,
         minimumPixelSize: 60
       },
