@@ -5,7 +5,7 @@ export const setRadarDynamic = (viewer, id, name, position) => {
   new ImportModel(
     viewer,
     {
-      uri: '/public/models/radar_dynamic.glb',
+      uri: '/models/radar_dynamic.glb',
       position,
       conf: {
         id,

@@ -5,7 +5,7 @@ export const setStaticRadar = (viewer, id, name, position) => {
   new ImportModel(
     viewer,
     {
-      uri: '/public/models/radar_static.gltf',
+      uri: '/models/radar_static.gltf',
       position,
       conf: {
         id,
