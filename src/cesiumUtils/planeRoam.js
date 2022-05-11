@@ -3,10 +3,10 @@ import getPath from '@/cesiumUtils/aircraftPath'
 import DrawLines from '@/cesiumUtils/drawLinesOld'
 import ImportModel from '@/cesiumUtils/importModelOld'
 
-const CesiumDrone = new URL(`../assets/models/CesiumDrone.glb`, import.meta.url).href
-const FactoryComplex = new URL(`../assets/models/Factory Complex.glb`, import.meta.url).href
-const OfficeBuilding = new URL(`../assets/models/Office Building.glb`, import.meta.url).href
-const radar_dynamic = new URL(`../assets/models/radar_dynamic.glb`, import.meta.url).href
+const CesiumDrone = '/models/CesiumDrone.glb'
+const FactoryComplex = '/models/Factory Complex.glb'
+const OfficeBuilding = '/models/Office Building.glb'
+const radar_dynamic = '/models/radar_dynamic.glb'
 
 const baseObj = {}
 const radarObj = {}

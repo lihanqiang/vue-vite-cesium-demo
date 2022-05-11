@@ -37,7 +37,10 @@
 
 ## Demo结构
   - public
+  - > geojson
+  - > models
   - > plugins
+  - > tilesets
   - > setting.js
   - src
   - > assets
