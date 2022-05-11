@@ -37,6 +37,7 @@
 
 ## Demo结构
   - public
+  - > plugins
   - > setting.js
   - src
   - > assets

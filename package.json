@@ -8,7 +8,7 @@
     "upload": "npm run build"
   },
   "dependencies": {
-    "cesium": "^1.85.0",
+    "cesium": "^1.87.0",
     "platform": "^1.3.6",
     "vue": "^3.0.4"
   },

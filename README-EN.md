@@ -19,6 +19,7 @@ A simple webgis demo with Vue.js(v3.x), Vite and Cesium.js. You are welcomed to 
 
 ## Demo strcuture
   - public
+  - > plugins
   - > setting.js
   - src
   - > assets

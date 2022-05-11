@@ -186,25 +186,17 @@ export default class ViewShed {
 
   // 加载三维模型
   addTileSet() {
-    new URL(`../assets/Tilesets/Tileset/ll.b3dm`, import.meta.url)
-    new URL(`../assets/Tilesets/Tileset/lr.b3dm`, import.meta.url)
-    new URL(`../assets/Tilesets/Tileset/parent.b3dm`, import.meta.url)
-    new URL(`../assets/Tilesets/Tileset/ul.b3dm`, import.meta.url)
-    new URL(`../assets/Tilesets/Tileset/ur.b3dm`, import.meta.url)
     const tileset = this.viewer.scene.primitives.add(new Cesium.Cesium3DTileset({
-      url: new URL('../assets/Tilesets/Tileset/tileset.json', import.meta.url).href
+      url: '/tilesets/buildings/tileset.json'
     }))
 
-    // tileset.readyPromise.then((tl) => {
-    // this.viewer.flyTo(tl, new Cesium.HeadingPitchRange(0.5, -0.2, tileset.boundingSphere.radius * 1))
-    // })
     this.viewer.camera.flyTo({
       destination: Cesium.Cartesian3.fromDegrees(
         ...viewPosition,
         10
       ),
       orientation: {
-      // 指向
+        // 指向
         heading: Cesium.Math.toRadians(0, 0),
         // 视角
         pitch: Cesium.Math.toRadians(-10),
@@ -214,7 +206,7 @@ export default class ViewShed {
     tileset.style = new Cesium.Cesium3DTileStyle({
       color: {
         conditions: [
-        // ['${Height} >= 84', 'rgba(45, 0, 75, 0.5)'],
+          // ['${Height} >= 84', 'rgba(45, 0, 75, 0.5)'],
           ['true', 'rgb(198, 106, 11)']
         ]
       }

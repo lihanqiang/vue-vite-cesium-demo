@@ -57,6 +57,10 @@ const btns = reactive([
         label: '加载geojson'
       },
       {
+        id: 'tilesetFlow',
+        label: 'tileset流动效果'
+      },
+      {
         id: 'terrain',
         label: '显示地形'
       },

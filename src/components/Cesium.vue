@@ -34,6 +34,7 @@ import { setEmitter } from '@/cesiumUtils/emitter'
 import { setRadarStaticScan } from '@/cesiumUtils/radarStaticScan'
 import { setRadarDynamicScan } from '@/cesiumUtils/radarDynamicScan'
 import ViewShed from '@/cesiumUtils/ViewShed'
+import TilesetFlow from '@/cesiumUtils/tilesetFlow'
 import * as paths from '@/assets/paths'
 import ImportPlane from '@/cesiumUtils/importPlane'
 import DrawLines from '@/cesiumUtils/drawLines'
@@ -54,6 +55,7 @@ let rain
 let snow
 let fog
 let shed
+let tileset
 let direct
 let round
 let circle
@@ -159,6 +161,15 @@ const btnClickHandler = (btn) => {
       }, () => {
         back2Home()
         shed.clear()
+      })
+      break
+    }
+    case 'tilesetFlow': {
+      caller(active, () => {
+        tileset = new TilesetFlow(viewer3D)
+      }, () => {
+        back2Home()
+        tileset.clear()
       })
       break
     }
