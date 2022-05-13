@@ -80,3 +80,7 @@ npm run dev or yarn run dev
 提取码：amts
 ### 说明
 本项目的代码，大部分为自创（70%以上），也有少部分代码借鉴他人，如有侵权问题，请联系删除。
+### TIPS
+.env.development以及.env.production文件为开发环境和生产环境的配置文件，这里的 `VITE_BUILD_PATH_PREFIX` 变量是本系统部署时（ https://lihanqiang.github.io/vue-vite-cesium-demo/ ），因为有 `/vue-vite-cesium-demo` 的缘故，需要在引用 `/public` 静态文件时，加上`/vue-vite-cesium-demo`前缀。
+
+** 在一般情况下，你只需设置 `VITE_BUILD_PATH_PREFIX=''` ，完成后打包发布即可。**

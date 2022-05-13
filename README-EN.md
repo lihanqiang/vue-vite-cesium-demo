@@ -61,5 +61,9 @@ A simple webgis demo with Vue.js(v3.x), Vite and Cesium.js. You are welcomed to 
   download link：https://pan.baidu.com/s/1hF95r16J3IbRfRhSdnv6kQ 
 
   code：amts
+### TIPS
+The files `.env.development` and `.env.production` are configs of development and production, the variable `VITE_BUILD_PATH_PREFIX` set `/vue-vite-cesium-demo`, because my website is https://lihanqiang.github.io/vue-vite-cesium-demo/ .
+
+** In general, set `VITE_BUILD_PATH_PREFIX=''` , and run the command `npm run build` , publish your site, it should be no problem.
 
 
