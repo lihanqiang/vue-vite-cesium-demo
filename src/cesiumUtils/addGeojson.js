@@ -1,11 +1,12 @@
 /* eslint-disable no-underscore-dangle */
 import Cesium from '@/cesiumUtils/cesium'
+import { pathPrefix } from '@/cesiumUtils/pathPrefix'
 
 const viewPosition = [116.388404, 39.8960601]
 let geojson
 
 export const addGeojson = async(viewer) => {
-  const url = '/geojson/gugong.geojson'
+  const url = `${pathPrefix}/geojson/gugong.geojson`
   geojson = await Cesium.GeoJsonDataSource.load(url, {
     stroke: Cesium.Color.WHITE,
     fill: Cesium.Color.BLUE.withAlpha(0.3), // 注意：颜色必须大写，即不能为blue

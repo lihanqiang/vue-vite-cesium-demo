@@ -1,4 +1,5 @@
 import Cesium from '@/cesiumUtils/cesium'
+import { pathPrefix } from '@/cesiumUtils/pathPrefix'
 
 let entities = []
 let onTickcallback1
@@ -108,7 +109,7 @@ export const setTrackPlane = (viewer, active) => {
         return endPoint
       }, false),
       model: {
-        uri: '/models/CesiumAir.glb',
+        uri: `${pathPrefix}/models/CesiumAir.glb`,
         scale: 2,
         minimumPixelSize: 60
       },
