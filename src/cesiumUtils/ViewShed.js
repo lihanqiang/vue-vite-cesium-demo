@@ -2,7 +2,6 @@
 /* eslint-disable no-underscore-dangle */
 // ViewShed.js
 import Cesium from '@/cesiumUtils/cesium'
-import { pathPrefix } from '@/cesiumUtils/pathPrefix'
 
 const viewPosition = [-75.61252658644749, 40.04020935441301]
 
@@ -188,7 +187,7 @@ export default class ViewShed {
   // 加载三维模型
   addTileSet() {
     const tileset = this.viewer.scene.primitives.add(new Cesium.Cesium3DTileset({
-      url: `${pathPrefix}/tilesets/buildings/tileset.json`
+      url: `${import.meta.env.VITE_BUILD_PATH_PREFIX}/tilesets/buildings/tileset.json`
     }))
 
     this.viewer.camera.flyTo({

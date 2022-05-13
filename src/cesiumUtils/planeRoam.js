@@ -2,12 +2,11 @@ import Cesium from '@/cesiumUtils/cesium'
 import getPath from '@/cesiumUtils/aircraftPath'
 import DrawLines from '@/cesiumUtils/drawLinesOld'
 import ImportModel from '@/cesiumUtils/importModelOld'
-import { pathPrefix } from '@/cesiumUtils/pathPrefix'
 
-const CesiumDrone = `${pathPrefix}/models/CesiumDrone.glb`
-const FactoryComplex = `${pathPrefix}/models/Factory Complex.glb`
-const OfficeBuilding = `${pathPrefix}/models/Office Building.glb`
-const radar_dynamic = `${pathPrefix}/models/radar_dynamic.glb`
+const CesiumDrone = `${import.meta.env.VITE_BUILD_PATH_PREFIX}/models/CesiumDrone.glb`
+const FactoryComplex = `${import.meta.env.VITE_BUILD_PATH_PREFIX}/models/Factory Complex.glb`
+const OfficeBuilding = `${import.meta.env.VITE_BUILD_PATH_PREFIX}/models/Office Building.glb`
+const radar_dynamic = `${import.meta.env.VITE_BUILD_PATH_PREFIX}/models/radar_dynamic.glb`
 
 const baseObj = {}
 const radarObj = {}

@@ -1,12 +1,11 @@
 import Cesium from '@/cesiumUtils/cesium'
 import ImportModel from '@/cesiumUtils/importModel'
-import { pathPrefix } from '@/cesiumUtils/pathPrefix'
 
 export const setRadarDynamic = (viewer, id, name, position) => {
   new ImportModel(
     viewer,
     {
-      uri: `${pathPrefix}/models/radar_dynamic.glb`,
+      uri: `${import.meta.env.VITE_BUILD_PATH_PREFIX}/models/radar_dynamic.glb`,
       position,
       conf: {
         id,

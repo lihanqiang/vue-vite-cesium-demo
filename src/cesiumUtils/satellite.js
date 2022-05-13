@@ -2,7 +2,6 @@ import Cesium from '@/cesiumUtils/cesium'
 import DrawSatelliteLines from './satelliteLines'
 import ImportModel from '@/cesiumUtils/importModel'
 import gerateSatelliteLines from '@/mocks/satellitePath'
-import { pathPrefix } from '@/cesiumUtils/pathPrefix'
 
 export const setSatellite = (viewer) => {
   new DrawSatelliteLines(viewer, {
@@ -11,7 +10,7 @@ export const setSatellite = (viewer) => {
   new ImportModel(
     viewer,
     {
-      uri: `${pathPrefix}/models/Satellite.glb`,
+      uri: `${import.meta.env.VITE_BUILD_PATH_PREFIX}/models/Satellite.glb`,
       position: [89, 0, 700000],
       conf: {
         id: 'sat',

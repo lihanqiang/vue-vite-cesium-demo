@@ -18,7 +18,6 @@
 <script setup>
 
 import { onMounted, ref } from 'vue'
-import { pathPrefix } from '@/cesiumUtils/pathPrefix'
 import Cesium from '@/cesiumUtils/cesium'
 import play from '@/assets/play.png'
 import { initCesium } from '@/cesiumUtils/initCesium'
@@ -91,7 +90,7 @@ const back2Home = () => {
 
 const setPlanePath = (viewer, arr, pos, addr) => {
   const plane = new ImportPlane(viewer, {
-    uri: `${pathPrefix}/models/CesiumAir.glb`,
+    uri: `${import.meta.env.VITE_BUILD_PATH_PREFIX}/models/CesiumAir.glb`,
     position: arr,
     addr,
     arrPos: pos,
@@ -148,7 +147,7 @@ const btnClickHandler = (btn) => {
       caller(active, () => {
         back2Home()
         sat = new SatRoaming(viewer3D, {
-          uri: `${pathPrefix}/models/Satellite.glb`,
+          uri: `${import.meta.env.VITE_BUILD_PATH_PREFIX}/models/Satellite.glb`,
           Lines: gerateSatelliteLines(0, 0)
         })
       }, () => {
