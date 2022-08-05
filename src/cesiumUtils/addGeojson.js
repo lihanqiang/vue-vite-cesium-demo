@@ -8,7 +8,7 @@ export const addGeojson = async(viewer) => {
   const url = `${import.meta.env.VITE_BUILD_PATH_PREFIX}/geojson/gugong.geojson`
   geojson = await Cesium.GeoJsonDataSource.load(url, {
     stroke: Cesium.Color.WHITE,
-    fill: Cesium.Color.BLUE.withAlpha(0.3), // 注意：颜色必须大写，即不能为blue
+    fill: Cesium.Color.BLUE.withAlpha(0.3),
     strokeWidth: 5
   })
   viewer.dataSources.add(geojson)
@@ -23,7 +23,7 @@ export const addGeojson = async(viewer) => {
     }
     entity.polygon.material = color
     entity.polygon.outline = false
-    entity.polygon.extrudedHeight = (entity.properties.height._value || 0) // 高度扩大50倍，便于观察
+    entity.polygon.extrudedHeight = (entity.properties.height._value || 0)
   })
   viewer.camera.flyTo({
     destination: Cesium.Cartesian3.fromDegrees(
@@ -31,9 +31,7 @@ export const addGeojson = async(viewer) => {
       1000
     ),
     orientation: {
-    // 指向
       heading: Cesium.Math.toRadians(0, 0),
-      // 视角
       pitch: Cesium.Math.toRadians(-20),
       roll: 0.0
     }

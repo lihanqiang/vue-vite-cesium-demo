@@ -1,5 +1,5 @@
 # vue-vite-cesium-demo
-[中文](./README.md) / [English](./README-EN.md)
+[CN 中文](./README.md) / [EN English](./README-EN.md)
 
 A simple webgis demo with Vue.js(v3.x), Vite and Cesium.js. You are welcomed to report bugs at any time, also you can contribute you own codes. 
 ## Preview

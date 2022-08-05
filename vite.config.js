@@ -19,7 +19,6 @@ export default defineConfig(({ mode }) => {
         '@': resolve(__dirname, 'src'),
         '~': resolve(__dirname, 'public')
       }
-      // 导入时想要省略的扩展名列表。注意，不 建议忽略自定义导入类型的扩展名（例如：.vue），因为它会影响 IDE 和类型支持。
       // extensions: ['.mjs', '.js', '.ts', '.jsx', '.tsx', '.json', '.vue']
     },
     optimizeDeps: {
@@ -29,7 +28,7 @@ export default defineConfig(({ mode }) => {
       target: 'modules',
       outDir: 'dist',
       assetsDir: 'assets',
-      minify: 'terser' // 混淆器
+      minify: 'terser' // terser
     },
     server: {
       cors: true,
@@ -38,11 +37,11 @@ export default defineConfig(({ mode }) => {
       port: 9999,
       proxy: {
         '/geoserver_cobalt': {
-          target: proxyHost, // 代理接口
+          target: proxyHost, // proxy site
           changeOrigin: true
         },
         '/terrain': {
-          target: proxyHost, // 代理接口
+          target: proxyHost, // proxy site
           changeOrigin: true
         }
       }

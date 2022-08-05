@@ -1,5 +1,5 @@
 # vue-vite-cesium-demo
-[中文](./README.md) / [English](./README-EN.md)
+[CN 中文](./README.md) / [EN English](./README-EN.md)
 
 本demo项目使用Vue.js（v3.0）、Vite、Cesium.js进行开发，解决了市面上没有这几个框架同时出现的痛点。本项目有大量现成的解决方案，可根据自己情况使用，在使用之前请阅读并遵循LICENSE协议。
 ## 项目包含一下功能

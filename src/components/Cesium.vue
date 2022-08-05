@@ -6,7 +6,7 @@
   <div class="measure-div">
     <div id="measure"></div>
   </div>
-  <!-- 实时视频流 -->
+  <!-- real-time video streaming -->
   <div class="h5videodiv" :class="{ show: videoShow }">
     <video id="h5sVideo1" class="h5video" autoplay webkit-playsinline playsinline></video>
     <div class="playpause">
@@ -179,9 +179,7 @@ const btnClickHandler = (btn) => {
         viewer3D.camera.flyTo({
           destination: Cesium.Cartesian3.fromDegrees(99.445, 25.27, 10000),
           orientation: {
-            // 指向
             heading: Cesium.Math.toRadians(0, 0),
-            // 视角
             pitch: Cesium.Math.toRadians(-90),
             roll: 0.0
           }
@@ -209,7 +207,7 @@ const btnClickHandler = (btn) => {
       break
     }
     case 'spreadWall': {
-      // 打开geojson更能看出效果
+      // open selection 'geojson' and see 'spreadWall' more clear
       caller(active, () => {
         const viewPosition = [116.390646, 39.9126084]
         viewer3D.camera.flyTo({
@@ -218,9 +216,7 @@ const btnClickHandler = (btn) => {
             1000
           ),
           orientation: {
-          // 指向
             heading: Cesium.Math.toRadians(0, 0),
-            // 视角
             pitch: Cesium.Math.toRadians(-20),
             roll: 0.0
           }
@@ -245,9 +241,7 @@ const btnClickHandler = (btn) => {
         viewer3D.camera.flyTo({
           destination: Cesium.Cartesian3.fromDegrees(99.5, 25.2, 10000),
           orientation: {
-            // 指向
             heading: Cesium.Math.toRadians(0, 0),
-            // 视角
             pitch: Cesium.Math.toRadians(-25),
             roll: 0.0
           }

@@ -2,8 +2,8 @@ import Cesium from '@/cesiumUtils/cesium'
 
 export default class ImportCZML {
   /**
-     *Creates an instance of ImportCZML.
-     * @param {*} viewer 需要传入
+     * Creates an instance of ImportCZML.
+     * @param {*} viewer required
      * @memberof ImportCZML
      */
   constructor(viewer, uri) {
@@ -13,7 +13,7 @@ export default class ImportCZML {
   }
 
   /**
-   * 生成kzml
+   * generate kzml
    */
   init() {
     const { viewer, uri } = this
