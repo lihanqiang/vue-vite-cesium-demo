@@ -46,6 +46,9 @@ import { analysisVisible, clearLine } from '@/cesiumUtils/visionAnalysis'
 import { setRiverFlood } from '@/cesiumUtils/riverFlood'
 import { setRiverDynamic } from '@/cesiumUtils/riverDynamic'
 import { setTrackPlane } from '@/cesiumUtils/trackPalne'
+import { setWhiteBuild } from '@/cesiumUtils/whiteBuild'
+import { addEcharts } from '@/cesiumUtils/addEcharts'
+
 import Measure from '@/cesiumUtils/cesiumMeasure'
 import Panel from '@/components/Panel.vue'
 
@@ -207,7 +210,7 @@ const btnClickHandler = (btn) => {
             1000
           ),
           orientation: {
-          // 指向
+            // 指向
             heading: Cesium.Math.toRadians(0, 0),
             // 视角
             pitch: Cesium.Math.toRadians(-20),
@@ -358,6 +361,14 @@ const btnClickHandler = (btn) => {
     case 'trackPlane': {
       back2Home()
       setTrackPlane(viewer3D, active)
+      break
+    }
+    case 'whiteBuild': {
+      setWhiteBuild(viewer3D, active)
+      break
+    }
+    case 'addEcharts': {
+      addEcharts(viewer3D, active)
       break
     }
     default: break

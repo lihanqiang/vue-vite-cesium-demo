@@ -91,6 +91,14 @@ const btns = reactive([
       {
         id: 'trackPlane',
         label: '追踪扫描'
+      },
+      {
+        id: 'whiteBuild',
+        label: '白膜建筑'
+      },
+      {
+        id: 'addEcharts',
+        label: '结合Echarts'
       }
     ]
   },

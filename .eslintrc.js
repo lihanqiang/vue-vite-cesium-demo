@@ -25,6 +25,7 @@ module.exports = {
     'vue/name-property-casing': ['error', 'PascalCase'],
     'vue/attribute-hyphenation': 'off',
     'vue/no-v-html': 'off',
+    'no-underscore-dangle': 'off',
     'accessor-pairs': 2,
     'arrow-spacing': [2, {
       before: true,
