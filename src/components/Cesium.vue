@@ -47,6 +47,9 @@ import { analysisVisible, clearLine } from '@/cesiumUtils/visionAnalysis'
 import { setRiverFlood } from '@/cesiumUtils/riverFlood'
 import { setRiverDynamic } from '@/cesiumUtils/riverDynamic'
 import { setTrackPlane } from '@/cesiumUtils/trackPalne'
+import { setWhiteBuild } from '@/cesiumUtils/whiteBuild'
+import { addEcharts } from '@/cesiumUtils/addEcharts'
+
 import Measure from '@/cesiumUtils/cesiumMeasure'
 import Panel from '@/components/Panel.vue'
 
@@ -363,6 +366,14 @@ const btnClickHandler = (btn) => {
     case 'trackPlane': {
       back2Home()
       setTrackPlane(viewer3D, active)
+      break
+    }
+    case 'whiteBuild': {
+      setWhiteBuild(viewer3D, active)
+      break
+    }
+    case 'addEcharts': {
+      addEcharts(viewer3D, active)
       break
     }
     default: break

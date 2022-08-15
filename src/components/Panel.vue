@@ -95,6 +95,14 @@ const btns = reactive([
       {
         id: 'trackPlane',
         label: 'Tracking scan'
+      },
+      {
+        id: 'whiteBuild',
+        label: 'white build'
+      },
+      {
+        id: 'addEcharts',
+        label: 'combine Echarts'
       }
     ]
   },
