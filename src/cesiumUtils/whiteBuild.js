@@ -1,4 +1,4 @@
-// 白膜建筑
+// white build
 import Cesium from '@/cesiumUtils/cesium'
 
 let primitive
@@ -11,7 +11,6 @@ function loadTilesShader(tileset) {
       ]
     }
   })
-  // 实现渐变效果
   tileset.tileVisible.addEventListener((tile) => {
     const { content } = tile
     const { featuresLength } = content
@@ -34,13 +33,12 @@ function loadTilesShader(tileset) {
             `
             varying vec3 ${v_position};
             void main(void){
-              vec4 position = czm_inverseModelView * vec4(${v_position},1); // 位置
-              gl_FragColor = ${color}; // 颜色
-              gl_FragColor *= vec4(vec3(position.z / 50.0), 1.0); // 渐变
-              // 动态光环
+              vec4 position = czm_inverseModelView * vec4(${v_position},1);
+              gl_FragColor = ${color}; // color
+              gl_FragColor *= vec4(vec3(position.z / 50.0), 1.0);
               float time = fract(czm_frameNumber / 180.0);
               time = abs(time - 0.5) * 2.0;
-              float glowRange = 180.0; // 光环的移动范围(高度)
+              float glowRange = 180.0;
               float diff = step(0.005, abs( clamp(position.z / glowRange, 0.0, 1.0) - time));
               gl_FragColor.rgb += gl_FragColor.rgb * (1.0 - diff);
             }

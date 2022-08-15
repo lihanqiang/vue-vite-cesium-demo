@@ -1,4 +1,4 @@
-import option from './echartData.js' // 飞机航线
+import option from './echartData.js' // flyline data
 import Cesium from '@/cesiumUtils/cesium'
 import { EchartsLayer } from './cesium_echartsLayer.js'
 
