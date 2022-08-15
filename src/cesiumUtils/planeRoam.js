@@ -3,6 +3,11 @@ import getPath from '@/cesiumUtils/aircraftPath'
 import DrawLines from '@/cesiumUtils/drawLinesOld'
 import ImportModel from '@/cesiumUtils/importModelOld'
 
+const CesiumDrone = `${import.meta.env.VITE_BUILD_PATH_PREFIX}/models/CesiumDrone.glb`
+const FactoryComplex = `${import.meta.env.VITE_BUILD_PATH_PREFIX}/models/Factory Complex.glb`
+const OfficeBuilding = `${import.meta.env.VITE_BUILD_PATH_PREFIX}/models/Office Building.glb`
+const radar_dynamic = `${import.meta.env.VITE_BUILD_PATH_PREFIX}/models/radar_dynamic.glb`
+
 const baseObj = {}
 const radarObj = {}
 
@@ -18,7 +23,7 @@ export const drawLinesAndAirplane = (viewer) => {
   const arr = getPath(...viewPosition)
   // 生成飞机(第一个点放置飞机)
   // eslint-disable-next-line no-use-before-define
-  planeModel = importModel(viewer, '/models/CesiumDrone.glb', arr.slice(0, 3), {
+  planeModel = importModel(viewer, CesiumDrone, arr.slice(0, 3), {
     id: 'airPlane',
     model: {
       minimumPixelSize: 50,
@@ -79,7 +84,7 @@ export const settleBaseRadarCarRadio = (viewer) => {
     return init
   }, [])
   newData.forEach((node) => {
-    const baseUri = Math.random() < 0.5 ? `/models/Factory Complex.glb` : `/models/Office Building.glb`
+    const baseUri = Math.random() < 0.5 ? FactoryComplex : OfficeBuilding
     if (node.label.includes('基地')) {
       baseObj[node.id] = importModel(viewer, baseUri, node.position, {
         id: node.id,
@@ -91,7 +96,7 @@ export const settleBaseRadarCarRadio = (viewer) => {
         }
       })
     } else if (node.label.includes('雷达')) {
-      radarObj[node.id] = importModel(viewer, `/models/radar_dynamic.glb`, node.position, {
+      radarObj[node.id] = importModel(viewer, radar_dynamic, node.position, {
         id: node.id,
         name: node.label,
         text: '',

@@ -7,8 +7,8 @@ var btnArea
 var btnClear
 /*
  * params: option
- *     option.viewer:required 三维视图
- *     option.target:required 测量工具放置的div的id
+ *     option.viewer:required 3D viwer
+ *     option.target:required id of container
  * */
 function Measure(option) {
   this.viewer = option.viewer
@@ -17,7 +17,7 @@ function Measure(option) {
 
   var me = this
   btnPosition = document.createElement('button')
-  btnPosition.innerHTML = '测量经、纬、高度'
+  btnPosition.innerHTML = 'Lon,lat,height'
   btnPosition.onclick = function() {
     if (btnPosition.style.background === '') {
       btnPosition.style.background = '#66b0e5bf'
@@ -36,7 +36,7 @@ function Measure(option) {
   this.dom.appendChild(btnPosition)
 
   btnDistance = document.createElement('button')
-  btnDistance.innerHTML = '测量距离'
+  btnDistance.innerHTML = 'Distance'
   btnDistance.onclick = function() {
     if (btnDistance.style.background === '') {
       btnDistance.style.background = '#66b0e5bf'
@@ -55,7 +55,7 @@ function Measure(option) {
   this.dom.appendChild(btnDistance)
 
   btnArea = document.createElement('button')
-  btnArea.innerHTML = '测量面积'
+  btnArea.innerHTML = 'Area'
   btnArea.onclick = function() {
     if (btnArea.style.background === '') {
       btnArea.style.background = '#66b0e5bf'
@@ -74,10 +74,10 @@ function Measure(option) {
   this.dom.appendChild(btnArea)
 
   btnClear = document.createElement('button')
-  btnClear.innerHTML = '清除结果(右键取消)'
+  btnClear.innerHTML = 'Clear (right click to cancel)'
   btnClear.onclick = function() {
     me._handlerDestroy()
-    // 删除事先记录的id
+    // delete cached id
     for (var i = 0; i < me.measureIds.length; i++) {
       me.viewer.entities.removeById(me.measureIds[i])
     }
@@ -95,13 +95,13 @@ Measure.prototype._measureFinish = function() {
 }
 Measure.prototype._handlerDestroy = function() {
   var handler = new Cesium.ScreenSpaceEventHandler(this.viewer.scene._imageryLayerCollection)
-  handler.destroy() // 关闭事件句柄
+  handler.destroy()
   handler = undefined
-  // 记录测量工具状态
+  // record status measure tool
   this._measureFinish()
 }
 
-// 获取经纬度
+// Get longitude and latitude
 Measure.prototype._measurePointLocation = function() {
   var me = this
   var viewer = this.viewer
@@ -125,10 +125,10 @@ Measure.prototype._measurePointLocation = function() {
     // fix without terrain data, show wrong number of height
     height = height >= 0 ? height : 0
     const heightF = height.toFixed(2) + 'm'
-    // 在三维场景中添加Label
+
     const text = `(${lngs}，${lats}，${heightF})`
     var floatingPoint = viewer.entities.add({
-      name: '位置点',
+      name: 'P_Point_1',
       position: Cesium.Cartesian3.fromDegrees(lng, lat, height),
       point: {
         pixelSize: 5,
@@ -149,19 +149,17 @@ Measure.prototype._measurePointLocation = function() {
     me.measureIds.push(floatingPoint.id)
   }, Cesium.ScreenSpaceEventType.LEFT_CLICK)
   handler.setInputAction(function(movement) {
-    handler.destroy() // 关闭事件句柄
+    handler.destroy()
     handler = undefined
-    // 记录测量工具状态
     me._measureFinish()
     me._restoreBtn()
   }, Cesium.ScreenSpaceEventType.RIGHT_CLICK)
 }
 
-// 内部测量距离函数
 Measure.prototype._measureLineSpace = function() {
   var me = this
   var viewer = this.viewer
-  // 取消双击事件-追踪该位置
+  // cancel del click handler
   viewer.cesiumWidget.screenSpaceEventHandler.removeInputAction(Cesium.ScreenSpaceEventType.LEFT_DOUBLE_CLICK)
 
   var handler = new Cesium.ScreenSpaceEventHandler(viewer.scene._imageryLayerCollection)
@@ -199,14 +197,13 @@ Measure.prototype._measureLineSpace = function() {
       positions.push(cartesian)
     }
     positions.push(cartesian)
-    // 记录鼠标单击时的节点位置，异步计算贴地距离
+    // Record the position of the node when the mouse is clicked, and calculate the grounding distance asynchronously
     labelPt = positions[positions.length - 1]
     if (positions.length > 2) {
       getSpaceDistance(positions)
     } else if (positions.length === 2) {
-      // 在三维场景中添加Label
       floatingPoint = viewer.entities.add({
-        name: '空间点',
+        name: 'PPP_Point',
         position: labelPt,
         point: {
           pixelSize: 5,
@@ -220,11 +217,10 @@ Measure.prototype._measureLineSpace = function() {
   }, Cesium.ScreenSpaceEventType.LEFT_CLICK)
 
   handler.setInputAction(function(movement) {
-    handler.destroy() // 关闭事件句柄
+    handler.destroy()
     handler = undefined
-    positions.pop() // 最后一个点无效
+    positions.pop() // delete last point
     if (positions.length === 1) { viewer.entities.remove(floatingPoint) }
-    // 记录测量工具状态
     me._measureFinish()
     me._restoreBtn()
   }, Cesium.ScreenSpaceEventType.RIGHT_CLICK)
@@ -232,7 +228,7 @@ Measure.prototype._measureLineSpace = function() {
   var PolyLinePrimitive = (function() {
     function _(positions) {
       this.options = {
-        name: '直线',
+        name: 'Direct_line',
         polyline: {
           show: true,
           positions: [],
@@ -250,7 +246,7 @@ Measure.prototype._measureLineSpace = function() {
       var _update = function() {
         return _self.positions
       }
-      // 实时更新polyline.positions
+      // update polyline.positions
       this.options.polyline.positions = new Cesium.CallbackProperty(_update, false)
       var addedEntity = viewer.entities.add(this.options)
       me.measureIds.push(addedEntity.id)
@@ -259,10 +255,8 @@ Measure.prototype._measureLineSpace = function() {
     return _
   })()
 
-  // 空间两点距离计算函数
+  // Space two-point distance calculation
   function getSpaceDistance(positions) {
-    // 只计算最后一截，与前面累加
-    // 因move和鼠标左击事件，最后两个点坐标重复
     var i = positions.length - 3
     var point1cartographic = Cesium.Cartographic.fromCartesian(positions[i])
     var point2cartographic = Cesium.Cartographic.fromCartesian(positions[i + 1])
@@ -274,12 +268,11 @@ Measure.prototype._measureLineSpace = function() {
     geodesic.setEndPoints(point1cartographic, point2cartographic)
     var s = geodesic.surfaceDistance
     var cartoPts = [point1cartographic]
-    for (var jj = 1000; jj < s; jj += 1000) { // 分段采样计算距离
+    for (var jj = 1000; jj < s; jj += 1000) { // Segmented sampling calculation distance
       var cartoPt = geodesic.interpolateUsingSurfaceDistance(jj)
       cartoPts.push(cartoPt)
     }
     cartoPts.push(point2cartographic)
-    // 返回两点之间的距离
     var promise = Cesium.sampleTerrain(viewer.terrainProvider, 8, cartoPts)
     Cesium.when(promise, function(updatedPositions) {
       // positions height have been updated.
@@ -300,11 +293,10 @@ Measure.prototype._measureLineSpace = function() {
         distance += innerS
       }
 
-      // 在三维场景中添加Label
-      var textDisance = distance.toFixed(2) + '米'
-      if (distance > 10000) { textDisance = (distance / 1000.0).toFixed(2) + '千米' }
+      var textDisance = distance.toFixed(2) + 'm'
+      if (distance > 10000) { textDisance = (distance / 1000.0).toFixed(2) + 'km' }
       floatingPoint = viewer.entities.add({
-        name: '贴地距离',
+        name: 'DDD_distance',
         position: labelPt,
         point: {
           pixelSize: 5,
@@ -327,11 +319,10 @@ Measure.prototype._measureLineSpace = function() {
   }
 }
 
-// 内部测量菲涅尔区函数
+// Measure Fresnel zone function
 Measure.prototype._measureFRCSpace = function() {
   var me = this
   var viewer = this.viewer
-  // 取消双击事件-追踪该位置
   viewer.cesiumWidget.screenSpaceEventHandler.removeInputAction(Cesium.ScreenSpaceEventType.LEFT_DOUBLE_CLICK)
 
   var handler = new Cesium.ScreenSpaceEventHandler(viewer.scene._imageryLayerCollection)
@@ -369,14 +360,12 @@ Measure.prototype._measureFRCSpace = function() {
       positions.push(cartesian)
     }
     positions.push(cartesian)
-    // 记录鼠标单击时的节点位置，异步计算贴地距离
     labelPt = positions[positions.length - 1]
     if (positions.length > 2) {
       getSpaceDistance(positions)
     } else if (positions.length === 2) {
-      // 在三维场景中添加Label
       floatingPoint = viewer.entities.add({
-        name: '空间点',
+        name: 'Area_a',
         position: labelPt,
         point: {
           pixelSize: 5,
@@ -390,11 +379,10 @@ Measure.prototype._measureFRCSpace = function() {
   }, Cesium.ScreenSpaceEventType.LEFT_CLICK)
 
   handler.setInputAction(function(movement) {
-    handler.destroy() // 关闭事件句柄
+    handler.destroy()
     handler = undefined
-    positions.pop() // 最后一个点无效
+    positions.pop()
     if (positions.length === 1) { viewer.entities.remove(floatingPoint) }
-    // 记录测量工具状态
     me._measureFinish()
     me._restoreBtn()
   }, Cesium.ScreenSpaceEventType.RIGHT_CLICK)
@@ -402,7 +390,7 @@ Measure.prototype._measureFRCSpace = function() {
   var PolyLinePrimitive = (function() {
     function _(positions) {
       this.options = {
-        name: '直线',
+        name: 'Direct_line_2',
         polyline: {
           show: true,
           positions: [],
@@ -420,7 +408,6 @@ Measure.prototype._measureFRCSpace = function() {
       var _update = function() {
         return _self.positions
       }
-      // 实时更新polyline.positions
       this.options.polyline.positions = new Cesium.CallbackProperty(_update, false)
       var addedEntity = viewer.entities.add(this.options)
       me.measureIds.push(addedEntity.id)
@@ -429,10 +416,7 @@ Measure.prototype._measureFRCSpace = function() {
     return _
   })()
 
-  // 空间两点距离计算函数
   function getSpaceDistance(positions) {
-    // 只计算最后一截，与前面累加
-    // 因move和鼠标左击事件，最后两个点坐标重复
     var i = positions.length - 3
     var point1cartographic = Cesium.Cartographic.fromCartesian(positions[i])
     var point2cartographic = Cesium.Cartographic.fromCartesian(positions[i + 1])
@@ -449,7 +433,6 @@ Measure.prototype._measureFRCSpace = function() {
       cartoPts.push(cartoPt)
     }
     cartoPts.push(point2cartographic)
-    // 返回两点之间的距离
     var promise = Cesium.sampleTerrain(viewer.terrainProvider, 8, cartoPts)
     Cesium.when(promise, function(updatedPositions) {
       // positions height have been updated.
@@ -462,11 +445,10 @@ Measure.prototype._measureFRCSpace = function() {
         distance += innerS
       }
 
-      // 在三维场景中添加Label
-      var textDisance = distance.toFixed(2) + '米'
-      if (distance > 10000) { textDisance = (distance / 1000.0).toFixed(2) + '千米' }
+      var textDisance = distance.toFixed(2) + 'm'
+      if (distance > 10000) { textDisance = (distance / 1000.0).toFixed(2) + 'km' }
       floatingPoint = viewer.entities.add({
-        name: '贴地距离',
+        name: 'j_l',
         position: labelPt,
         point: {
           pixelSize: 5,
@@ -489,13 +471,11 @@ Measure.prototype._measureFRCSpace = function() {
   }
 }
 
-// 内部测量面积函数
+// Measurement area function
 Measure.prototype._measureAreaSpace = function() {
   var me = this
   var viewer = this.viewer
-  // 鼠标事件
   var handler = new Cesium.ScreenSpaceEventHandler(viewer.scene._imageryLayerCollection)
-  // 取消双击事件-追踪该位置
   viewer.cesiumWidget.screenSpaceEventHandler.removeInputAction(Cesium.ScreenSpaceEventType.LEFT_DOUBLE_CLICK)
   var positions = []
   var tempPoints = []
@@ -522,16 +502,14 @@ Measure.prototype._measureAreaSpace = function() {
     if (positions.length === 0) {
       positions.push(cartesian.clone())
     }
-    // positions.pop();
     positions.push(cartesian)
-    // 在三维场景中添加点
     var cartographic = Cesium.Cartographic.fromCartesian(positions[positions.length - 1])
     var longitudeString = Cesium.Math.toDegrees(cartographic.longitude)
     var latitudeString = Cesium.Math.toDegrees(cartographic.latitude)
     var heightString = cartographic.height
     tempPoints.push({ lon: longitudeString, lat: latitudeString, hei: heightString })
     floatingPoint = viewer.entities.add({
-      name: '多边形点',
+      name: 'Poly_P',
       position: positions[positions.length - 1],
       point: {
         pixelSize: 5,
@@ -560,12 +538,11 @@ Measure.prototype._measureAreaSpace = function() {
       viewer.entities.remove(floatingPoint)
       return
     }
-    // 记录测量工具状态
     me._measureFinish()
 
-    var textArea = getArea(tempPoints) + '平方千米'
+    var textArea = getArea(tempPoints) + 'km²'
     floatingPoint = viewer.entities.add({
-      name: '测量面积',
+      name: 'M_area',
       position: positions[positions.length - 1],
       label: {
         text: textArea,
@@ -582,13 +559,13 @@ Measure.prototype._measureAreaSpace = function() {
     me._restoreBtn()
   }, Cesium.ScreenSpaceEventType.RIGHT_CLICK)
 
-  var radiansPerDegree = Math.PI / 180.0// 角度转化为弧度(rad)
-  var degreesPerRadian = 180.0 / Math.PI// 弧度转化为角度
+  var radiansPerDegree = Math.PI / 180.0// Angle to radian (rad)
+  var degreesPerRadian = 180.0 / Math.PI// Radian to angle
 
-  // 计算多边形面积
+  // Calculate polygon area
   function getArea(points) {
     var res = 0
-    // 拆分三角曲面
+    // Split triangular surface
     for (var i = 0; i < points.length - 2; i++) {
       var j = (i + 1) % points.length
       var k = (i + 2) % points.length
@@ -602,7 +579,7 @@ Measure.prototype._measureAreaSpace = function() {
     return (res / 1000000.0).toFixed(4)
   }
 
-  /* 角度*/
+  // angle
   function Angle(p1, p2, p3) {
     var bearing21 = Bearing(p2, p1)
     var bearing23 = Bearing(p2, p3)
@@ -612,7 +589,8 @@ Measure.prototype._measureAreaSpace = function() {
     }
     return angle
   }
-  /* 方向*/
+  
+  // direction
   function Bearing(from, to) {
     var lat1 = from.lat * radiansPerDegree
     var lon1 = from.lon * radiansPerDegree
@@ -622,14 +600,14 @@ Measure.prototype._measureAreaSpace = function() {
     if (angle < 0) {
       angle += Math.PI * 2.0
     }
-    angle = angle * degreesPerRadian // 角度
+    angle = angle * degreesPerRadian // angle
     return angle
   }
 
   var PolygonPrimitive = (function() {
     function _(positions) {
       this.options = {
-        name: '多边形面积',
+        name: 'dbx_area',
         polygon: {
           hierarchy: [],
           // perPositionHeight : true,
@@ -647,7 +625,6 @@ Measure.prototype._measureAreaSpace = function() {
       var _update = function() {
         return _self.hierarchy
       }
-      // 实时更新polygon.hierarchy
       this.options.polygon.hierarchy = new Cesium.CallbackProperty(_update, false)
       var addedEntity = viewer.entities.add(this.options)
       me.measureIds.push(addedEntity.id)
@@ -659,23 +636,19 @@ Measure.prototype._measureAreaSpace = function() {
   function distance(point1, point2) {
     var point1cartographic = Cesium.Cartographic.fromCartesian(point1)
     var point2cartographic = Cesium.Cartographic.fromCartesian(point2)
-    /** 根据经纬度计算出距离**/
     var geodesic = new Cesium.EllipsoidGeodesic()
     geodesic.setEndPoints(point1cartographic, point2cartographic)
     var s = geodesic.surfaceDistance
-    // 返回两点之间的距离
     s = Math.sqrt(Math.pow(s, 2) + Math.pow(point2cartographic.height - point1cartographic.height, 2))
     return s
   }
 }
 
-// 内部测量扇形面积函数
+// Measure sector area function
 Measure.prototype._measureSectorSpace = function() {
   var me = this
   var viewer = this.viewer
-  // 鼠标事件
   var handler = new Cesium.ScreenSpaceEventHandler(viewer.scene._imageryLayerCollection)
-  // 取消双击事件-追踪该位置
   viewer.cesiumWidget.screenSpaceEventHandler.removeInputAction(Cesium.ScreenSpaceEventType.LEFT_DOUBLE_CLICK)
   var positions = []
   var tempPoints = []
@@ -702,9 +675,7 @@ Measure.prototype._measureSectorSpace = function() {
     if (positions.length === 0) {
       positions.push(cartesian.clone())
     }
-    // positions.pop();
     positions.push(cartesian)
-    // 在三维场景中添加点
     var cartographic = Cesium.Cartographic.fromCartesian(positions[positions.length - 1])
     var longitudeString = Cesium.Math.toDegrees(cartographic.longitude)
     var latitudeString = Cesium.Math.toDegrees(cartographic.latitude)
@@ -712,7 +683,7 @@ Measure.prototype._measureSectorSpace = function() {
     tempPoints.push({ lon: longitudeString, lat: latitudeString, hei: heightString })
     var headings = Cesium.Math.toRadians(90)
     floatingPoint = viewer.entities.add({
-      name: '扇形点',
+      name: 'sector_1',
       position: positions[positions.length - 1],
       orientation: Cesium.Transforms.headingPitchRollQuaternion(
         Cesium.Cartesian3.fromDegrees(positions[positions.length - 1]),
@@ -749,12 +720,11 @@ Measure.prototype._measureSectorSpace = function() {
       viewer.entities.remove(floatingPoint)
       return
     }
-    // 记录测量工具状态
     me._measureFinish()
 
-    var textArea = getArea(tempPoints) + '平方千米'
+    var textArea = getArea(tempPoints) + 'km²'
     floatingPoint = viewer.entities.add({
-      name: '扇形',
+      name: 'sx_sector',
       position: positions[positions.length - 1],
       label: {
         text: textArea,
@@ -771,13 +741,11 @@ Measure.prototype._measureSectorSpace = function() {
     me._restoreBtn()
   }, Cesium.ScreenSpaceEventType.RIGHT_CLICK)
 
-  var radiansPerDegree = Math.PI / 180.0// 角度转化为弧度(rad)
-  var degreesPerRadian = 180.0 / Math.PI// 弧度转化为角度
+  var radiansPerDegree = Math.PI / 180.0
+  var degreesPerRadian = 180.0 / Math.PI
 
-  // 计算多边形面积
   function getArea(points) {
     var res = 0
-    // 拆分三角曲面
     for (var i = 0; i < points.length - 2; i++) {
       var j = (i + 1) % points.length
       var k = (i + 2) % points.length
@@ -791,7 +759,6 @@ Measure.prototype._measureSectorSpace = function() {
     return (res / 1000000.0).toFixed(4)
   }
 
-  /* 角度*/
   function Angle(p1, p2, p3) {
     var bearing21 = Bearing(p2, p1)
     var bearing23 = Bearing(p2, p3)
@@ -801,7 +768,6 @@ Measure.prototype._measureSectorSpace = function() {
     }
     return angle
   }
-  /* 方向*/
   function Bearing(from, to) {
     var lat1 = from.lat * radiansPerDegree
     var lon1 = from.lon * radiansPerDegree
@@ -818,7 +784,6 @@ Measure.prototype._measureSectorSpace = function() {
   var PolygonPrimitive = (function() {
     function _(positions) {
       this.options = {
-        name: '多边形面积',
         polygon: {
           hierarchy: [],
           // perPositionHeight : true,
@@ -836,7 +801,6 @@ Measure.prototype._measureSectorSpace = function() {
       var _update = function() {
         return _self.hierarchy
       }
-      // 实时更新polygon.hierarchy
       this.options.polygon.hierarchy = new Cesium.CallbackProperty(_update, false)
       var addedEntity = viewer.entities.add(this.options)
       me.measureIds.push(addedEntity.id)
@@ -848,11 +812,9 @@ Measure.prototype._measureSectorSpace = function() {
   function distance(point1, point2) {
     var point1cartographic = Cesium.Cartographic.fromCartesian(point1)
     var point2cartographic = Cesium.Cartographic.fromCartesian(point2)
-    /** 根据经纬度计算出距离**/
     var geodesic = new Cesium.EllipsoidGeodesic()
     geodesic.setEndPoints(point1cartographic, point2cartographic)
     var s = geodesic.surfaceDistance
-    // 返回两点之间的距离
     s = Math.sqrt(Math.pow(s, 2) + Math.pow(point2cartographic.height - point1cartographic.height, 2))
     return s
   }

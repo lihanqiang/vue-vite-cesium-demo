@@ -6,7 +6,7 @@
   <div class="measure-div">
     <div id="measure"></div>
   </div>
-  <!-- 实时视频流 -->
+  <!-- real-time video streaming -->
   <div class="h5videodiv" :class="{ show: videoShow }">
     <video id="h5sVideo1" class="h5video" autoplay webkit-playsinline playsinline></video>
     <div class="playpause">
@@ -34,6 +34,7 @@ import { setEmitter } from '@/cesiumUtils/emitter'
 import { setRadarStaticScan } from '@/cesiumUtils/radarStaticScan'
 import { setRadarDynamicScan } from '@/cesiumUtils/radarDynamicScan'
 import ViewShed from '@/cesiumUtils/ViewShed'
+import TilesetFlow from '@/cesiumUtils/tilesetFlow'
 import * as paths from '@/assets/paths'
 import ImportPlane from '@/cesiumUtils/importPlane'
 import DrawLines from '@/cesiumUtils/drawLines'
@@ -57,6 +58,7 @@ let rain
 let snow
 let fog
 let shed
+let tileset
 let direct
 let round
 let circle
@@ -91,7 +93,7 @@ const back2Home = () => {
 
 const setPlanePath = (viewer, arr, pos, addr) => {
   const plane = new ImportPlane(viewer, {
-    uri: '/models/CesiumAir.glb',
+    uri: `${import.meta.env.VITE_BUILD_PATH_PREFIX}/models/CesiumAir.glb`,
     position: arr,
     addr,
     arrPos: pos,
@@ -148,7 +150,7 @@ const btnClickHandler = (btn) => {
       caller(active, () => {
         back2Home()
         sat = new SatRoaming(viewer3D, {
-          uri: `/models/Satellite.glb`,
+          uri: `${import.meta.env.VITE_BUILD_PATH_PREFIX}/models/Satellite.glb`,
           Lines: gerateSatelliteLines(0, 0)
         })
       }, () => {
@@ -165,15 +167,22 @@ const btnClickHandler = (btn) => {
       })
       break
     }
+    case 'tilesetFlow': {
+      caller(active, () => {
+        tileset = new TilesetFlow(viewer3D)
+      }, () => {
+        back2Home()
+        tileset.clear()
+      })
+      break
+    }
     case 'visionAnalysis': {
       let timer = 0
       caller(active, () => {
         viewer3D.camera.flyTo({
           destination: Cesium.Cartesian3.fromDegrees(99.445, 25.27, 10000),
           orientation: {
-            // 指向
             heading: Cesium.Math.toRadians(0, 0),
-            // 视角
             pitch: Cesium.Math.toRadians(-90),
             roll: 0.0
           }
@@ -201,7 +210,7 @@ const btnClickHandler = (btn) => {
       break
     }
     case 'spreadWall': {
-      // 打开geojson更能看出效果
+      // open selection 'geojson' and see 'spreadWall' more clear
       caller(active, () => {
         const viewPosition = [116.390646, 39.9126084]
         viewer3D.camera.flyTo({
@@ -210,9 +219,7 @@ const btnClickHandler = (btn) => {
             1000
           ),
           orientation: {
-            // 指向
             heading: Cesium.Math.toRadians(0, 0),
-            // 视角
             pitch: Cesium.Math.toRadians(-20),
             roll: 0.0
           }
@@ -237,9 +244,7 @@ const btnClickHandler = (btn) => {
         viewer3D.camera.flyTo({
           destination: Cesium.Cartesian3.fromDegrees(99.5, 25.2, 10000),
           orientation: {
-            // 指向
             heading: Cesium.Math.toRadians(0, 0),
-            // 视角
             pitch: Cesium.Math.toRadians(-25),
             roll: 0.0
           }

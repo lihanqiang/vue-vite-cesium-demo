@@ -108,7 +108,7 @@ export const setTrackPlane = (viewer, active) => {
         return endPoint
       }, false),
       model: {
-        uri: `/models/CesiumAir.glb`,
+        uri: `${import.meta.env.VITE_BUILD_PATH_PREFIX}/models/CesiumAir.glb`,
         scale: 2,
         minimumPixelSize: 60
       },

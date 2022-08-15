@@ -1,5 +1,5 @@
 # vue-vite-cesium-demo
-[中文](./README.md) / [English](./README-EN.md)
+[CN 中文](./README.md) / [EN English](./README-EN.md)
 
 A simple webgis demo with Vue.js(v3.x), Vite and Cesium.js. You are welcomed to report bugs at any time, also you can contribute you own codes. 
 ## Preview
@@ -10,13 +10,19 @@ A simple webgis demo with Vue.js(v3.x), Vite and Cesium.js. You are welcomed to 
 
 <img src="https://i.ibb.co/x6KKxVn/jietu.png" width="50%" alt="preview" />
 
+<img src="https://i.ibb.co/7SwqVKK/xxx.png" width="50%" alt="preview" />
+
+<img src="https://i.ibb.co/yPCcMwp/yyy.png" width="50%" alt="preview" />
+
+## ONLINE SITE
+[https://lihanqiang.github.io/vue-vite-cesium-demo/](https://lihanqiang.github.io/vue-vite-cesium-demo/)
+
 ## Demo strcuture
   - public
-  - > czmls
   - > geojson
   - > models
   - > plugins
-  - > Tilesets
+  - > tilesets
   - > setting.js
   - src
   - > assets
@@ -43,10 +49,10 @@ A simple webgis demo with Vue.js(v3.x), Vite and Cesium.js. You are welcomed to 
     at Process.ChildProcess._handle.onexit (node:internal/child_process:288:12)
     at onErrorNT (node:internal/child_process:477:16)
     at processTicksAndRejections (node:internal/process/task_queues:83:21) {
-  errno: -4058,
-  path: 'H:\node_modules\\esbuild\\esbuild.exe',
-  spawnargs: [ '--service=0.12.9', '--ping' ]
-}
+    errno: -4058,
+    path: 'H:\node_modules\\esbuild\\esbuild.exe',
+    spawnargs: [ '--service=0.12.9', '--ping' ]
+  }
   ```
   
   ## About RTSP
@@ -55,12 +61,9 @@ A simple webgis demo with Vue.js(v3.x), Vite and Cesium.js. You are welcomed to 
   download link：https://pan.baidu.com/s/1hF95r16J3IbRfRhSdnv6kQ 
 
   code：amts
+### TIPS
+The files `.env.development` and `.env.production` are configs of development and production, the variable `VITE_BUILD_PATH_PREFIX` set `/vue-vite-cesium-demo`, because my website is https://lihanqiang.github.io/vue-vite-cesium-demo/ .
 
-  ## donation for this demo
-  It took a lot of time and energy to finish this demo. If this demo helps you, you may buy me a coffee &#x1F92B;.
+** In general, set `VITE_BUILD_PATH_PREFIX=''` , and run the command `npm run build` , publish your site, it should be no problem.
 
-  ### unionpay:
-  > account: 6229100049542905
-
-  > name: 李X强
 
