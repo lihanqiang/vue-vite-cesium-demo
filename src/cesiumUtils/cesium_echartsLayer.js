@@ -6,7 +6,6 @@ class RegisterCoordinateSystem {
     constructor(glMap) {
         this._GLMap = glMap;
         this._mapOffset = [0, 0];
-        this.radians = Cesium.Math.toRadians(80)
         this.dimensions = ['lng', 'lat'];
     }
 
@@ -23,14 +22,19 @@ class RegisterCoordinateSystem {
     }
 
     dataToPoint (coords) {
-        let lonlat = [99999, 99999];
         coords[1] = this.fixLat(coords[1]);
         let position = Cesium.Cartesian3.fromDegrees(coords[0], coords[1]);
-        if (!position) return lonlat;
+        if (!position) return [];
         let coordinates = this._GLMap.cartesianToCanvasCoordinates(position);
-        if (!coordinates) return lonlat;
+        if (!coordinates) return [];
         if (this._GLMap.mode === Cesium.SceneMode.SCENE3D) {
-            if (Cesium.Cartesian3.angleBetween(this._GLMap.camera.position, position) > this.radians) return !1;
+            const pointA = position
+            const pointB =  this._GLMap.camera.position
+            const transform = Cesium.Transforms.eastNorthUpToFixedFrame(pointA);
+            const positionvector = Cesium.Cartesian3.subtract(pointB, pointA, new Cesium.Cartesian3());
+            const vector = Cesium.Matrix4.multiplyByPointAsVector(Cesium.Matrix4.inverse(transform, new Cesium.Matrix4()), positionvector, new Cesium.Cartesian3());
+            const direction = Cesium.Cartesian3.normalize(vector, new Cesium.Cartesian3());
+            if (direction.z<0) return [];
         }
         return [coordinates.x - this._mapOffset[0], coordinates.y - this._mapOffset[1]];
     }
@@ -72,7 +76,7 @@ class RegisterCoordinateSystem {
     }
 }
 
-export class EchartsLayer {
+export default class EchartsLayer {
     constructor(viewer, option) {
         this._viewer = viewer;
         this._isRegistered = false;
@@ -96,8 +100,10 @@ export class EchartsLayer {
         container.style.pointerEvents = "none";
         this._viewer.container.appendChild(container);
         this._echartsContainer = container;
-        echarts.glMap = scene;
-        this._register();
+        if(!echarts.glMap){
+            echarts.glMap = scene;
+            this._register();
+        }
         return echarts.init(container);
     }
     _register () {
