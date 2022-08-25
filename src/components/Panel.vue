@@ -99,6 +99,10 @@ const btns = reactive([
       {
         id: 'whiteBuild',
         label: 'white build'
+      },
+      {
+        id: 'addEcharts',
+        label: 'combine Echarts'
       }
     ]
   },

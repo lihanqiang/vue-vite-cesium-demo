@@ -1,6 +1,6 @@
 import option from './echartData.js' // flyline data
 import Cesium from '@/cesiumUtils/cesium'
-import { EchartsLayer } from './cesium_echartsLayer.js'
+import EchartsLayer from './cesium_echartsLayer.js'
 
 let layer
 export const addEcharts = (viewer, active) => {
