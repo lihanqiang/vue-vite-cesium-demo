@@ -1,7 +1,7 @@
 const setting = {
-  geoServerBaseUrl: '/geoserver_cobalt/{z}/{x}/{y}.png',
+  geoServerBaseUrl: '/geoserver',
   geoServerTerrainUrl: '/terrain',
-  geoserverHost: 'http://192.168.88.228:10000/',
+  geoserverHost: 'http://192.168.88.105:10010',
   rtspUrl: 'localhost:8082',
   SFTP_HOST: '192.168.88.228', // eg. 123.12.11.11
   SFTP_PORT: 22, // default 22
