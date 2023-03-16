@@ -1,12 +1,13 @@
 import Cesium from '@/cesiumUtils/cesium'
 import { deepObjectMerge } from '.'
+import { $t } from './i18n'
 
 export default class DrawSatellite {
   /**
      *Creates an instance of DrawSatellite.
-     * @param {*} viewer 需要传入
-     * @param {*} options.lines  点集合 需要传入如 [104, 30, 100, 105, 30, 101]
-     * @param {*} options.conf 线段的配置 见 defaultConf 不一定传入, 传入会合并
+     * @param {*} viewer required
+     * @param {*} options.lines  lines set, required eg. [104, 30, 100, 105, 30, 101]
+     * @param {*} options.conf configuration of model, see defaultConf, optional
      * @memberof DrawSatellite
      */
   constructor(viewer, options) {
@@ -18,12 +19,12 @@ export default class DrawSatellite {
     this.InitRadarArea()
   }
 
-  // 路线
+  // route
   InitLine() {
     const defaultConf = {
       id: 'satellite',
       name: 'wxgj',
-      // 可见范围
+      // DisplayCondition
       distanceDisplayCondition: new Cesium.DistanceDisplayCondition(100, 1000),
       polyline: {
         positions: Cesium.Cartesian3.fromDegreesArrayHeights(this.lines),
@@ -38,21 +39,19 @@ export default class DrawSatellite {
 
   /**
    *
-   * 卫星下面的锥形
-   * @param {*} position computeFlight计算的属性
+   * radar survey area
+   * @param {*} position computeFlight return position
    * @memberof Roaming
    */
   InitRadarArea() {
     const position = Cesium.Cartesian3.fromDegrees(...[89, 0, 350000])
-    // x,y,z轴的倾斜角度
     const hpr = new Cesium.HeadingPitchRoll(0, 0.0, 0.0)
-    // 确定目标x,y,z轴方向
     const op = Cesium.Cartesian3.fromDegrees(...[89, 0, 350000])
     const orientation = Cesium.Transforms.headingPitchRollQuaternion(op, hpr)
     this.entity2 = this.viewer.entities.add({
       id: '233',
-      name: '卫星探测区域',
-      // 位置
+      name: $t('sat survey area'),
+      // position
       position,
       orientation,
       cylinder: {
@@ -69,7 +68,7 @@ export default class DrawSatellite {
     // this.viewer.zoomTo(this.entity2)
   }
 
-  // 删除整个连线
+  // removeLine
   removeLine() {
     this.viewer.entities.remove(this.entity)
     this.viewer.entities.remove(this.entity2)

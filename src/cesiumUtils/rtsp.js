@@ -11,7 +11,7 @@ const conf1 = {
   autoplay: true
 }
 let v1
-// 实时视频
+// initVedeo
 export const initVedeo = (id) => {
   conf1.videoid = id
   v1 = H5sPlayerCreate(conf1)

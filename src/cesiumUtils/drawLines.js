@@ -64,7 +64,6 @@ export default class DrawLines {
 
   // Line
   InitLine() {
-    // this.showPoint && this.drawPoint()
     const defaultConf = {
       id: `${Math.random()}`,
       name: 'FXLX',

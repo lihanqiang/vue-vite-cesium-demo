@@ -77,9 +77,23 @@ npm run dev or yarn run dev
 ### RTSP项目运行说明
 本项目使用开源的WEB RTSP视频推流方案，下载解压缩你在网络上下载的视频推流软件，按照说明安装和部署。关注```setting.js```进行协议端口配置。也可按照我的RTSP方案进行配置：
 
-链接：https://pan.baidu.com/s/1hF95r16J3IbRfRhSdnv6kQ 
+#### 下载
+链接：https://pan.baidu.com/s/1Hovu2CRr8N7MOlKm1MsPNw?pwd=txvg
 
-提取码：amts
+#### 安装
+* 将文件解压后放置于`D:\rtsp`目录下:
+
+<img src="https://i.ibb.co/0BFtJ1z/2023-03-16-135523.png" width="50%" alt="preview" />
+
+* 首先安装`vc++lib_v2020.8.2.exe`。
+
+#### 运行
+* 以管理员身份打开`cmd`，进入`D:/rtsp/h5s-r10.8.0330.20-win64-release`目录。
+
+* 先运行`regservice.bat`，再运行`h5ss.bat`。
+
+* 点击`UAV detection (video streaming)`按钮，在界面坐上角即可看到画面。
+
 ### 说明
 本项目的代码，大部分为自创（70%以上），也有少部分代码借鉴他人，如有侵权问题，请联系删除。
 ### TIPS

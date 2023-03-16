@@ -2,11 +2,11 @@ import Cesium from '@/cesiumUtils/cesium'
 
 export default class ImportModel {
   /**
-     *Creates an instance of ImportModel.
-     * @param {*} viewer 需要传入
-     * @param {*} options.uri 模型的uri 需要传入
-     * @param {*} options.position 模型的位置经纬度高度数组 需要传入
-     * @param {*} options.conf 模型的配置 见defaultConf 不一定传入
+     * Creates an instance of ImportModel.
+     * @param {*} viewer required
+     * @param {*} options.uri model uri, required
+     * @param {*} options.position [lon, lat, hei] of model, required
+     * @param {*} options.conf config of model, see defaultConf, optional
      * @memberof ImportModel
      */
   constructor(viewer, options) {
@@ -17,7 +17,7 @@ export default class ImportModel {
     this.InitModel()
   }
 
-  // 生成model
+  // generate entities
   InitModel() {
     const { viewer } = this
     const {
@@ -58,9 +58,9 @@ export default class ImportModel {
   }
 
   /**
-   * 计算某点的高程
-   * @param {*} text // label的文字
-   * @param {*} position // 出现的位置
+   * compute height of point
+   * @param {*} text // text
+   * @param {*} position // position
    * @memberof ImportModel
    */
   computeHeight(lon = 103, lat = 33.8084) {
@@ -74,9 +74,9 @@ export default class ImportModel {
   }
 
   /**
-   * 添加label
-   * @param {*} text // label的文字
-   * @param {*} position // 出现的位置
+   * add label
+   * @param {*} text // text
+   * @param {*} position // position
    * @memberof ImportModel
    */
   addPrimitiveLabel(text = '', position) {
@@ -102,8 +102,8 @@ export default class ImportModel {
   }
 
   /**
-   * 添加各模型之间的连线
-   * @param {*} targetPos // 线段终止点的位置
+   * add lines of two points
+   * @param {*} targetPos // postion of endPoint
    * @memberof ImportModel
    */
   addPrimitiveLine(targetPos) {
@@ -116,9 +116,9 @@ export default class ImportModel {
       }),
       appearance: new Cesium.PolylineMaterialAppearance({
         material: Cesium.Material.fromType(Cesium.Material.PolylineDashType, {
-          color: Cesium.Color.YELLOW, // 线条颜色
-          gapColor: Cesium.Color.TRANSPARENT, // 间隔颜色
-          dashLength: 5 // 短划线长度
+          color: Cesium.Color.YELLOW, // line's color
+          gapColor: Cesium.Color.TRANSPARENT, // gap color
+          dashLength: 5 // dash length
         })
       })
     })

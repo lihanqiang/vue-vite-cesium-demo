@@ -1,4 +1,4 @@
-// * 通视分析
+// 通视分析
 import Cesium from '@/cesiumUtils/cesium'
 
 const visionLinesArr = []

@@ -2,6 +2,7 @@ import Cesium from '@/cesiumUtils/cesium'
 import getPath from '@/cesiumUtils/aircraftPath'
 import DrawLines from '@/cesiumUtils/drawLinesOld'
 import ImportModel from '@/cesiumUtils/importModelOld'
+import { $t } from '@/cesiumUtils/i18n'
 
 const CesiumDrone = `${import.meta.env.VITE_BUILD_PATH_PREFIX}/models/CesiumDrone.glb`
 const FactoryComplex = `${import.meta.env.VITE_BUILD_PATH_PREFIX}/models/Factory Complex.glb`
@@ -17,11 +18,11 @@ let planeModel
 let traceEntities = []
 let thisLineIns
 
-// 放置飞机和路线
+// settle planes and tracks
 export const drawLinesAndAirplane = (viewer) => {
-  // 生成该位置附近的路线点
+  // generate routes
   const arr = getPath(...viewPosition)
-  // 生成飞机(第一个点放置飞机)
+  // settle plane at first point
   // eslint-disable-next-line no-use-before-define
   planeModel = importModel(viewer, CesiumDrone, arr.slice(0, 3), {
     id: 'airPlane',
@@ -32,7 +33,7 @@ export const drawLinesAndAirplane = (viewer) => {
   })
   const valuesOfRadarObj = Object.values(radarObj)
   traceEntities = valuesOfRadarObj.map((value, i) => {
-    // 各节点两点连接
+    // connect between each two point
     // if (i !== valuesOfRadarObj.length - 1) {
     //   const nextEntity = valuesOfRadarObj[i + 1].entity
     //   value.traceTarget(nextEntity)
@@ -40,7 +41,7 @@ export const drawLinesAndAirplane = (viewer) => {
     return value.entity
   })
   planeModel.traceTarget(traceEntities)
-  // 路线
+  // track
   thisLineIns = new DrawLines(viewer, {
     lines: arr,
     showPoint: false,
@@ -53,9 +54,9 @@ export const drawLinesAndAirplane = (viewer) => {
         50000
       ),
       orientation: {
-      // 指向
+        // heading
         heading: Cesium.Math.toRadians(0, 0),
-        // 视角
+        // pitch
         pitch: Cesium.Math.toRadians(-45),
         roll: 0.0
       }
@@ -72,7 +73,7 @@ function importModel(viewer, uri, position, conf, lineConf) {
   })
 }
 
-// 放置ld和节点(分中心和站点)
+// setting radars and nodes
 export const settleBaseRadarCarRadio = (viewer) => {
   // eslint-disable-next-line no-use-before-define
   const data = getTargetsData()
@@ -85,7 +86,7 @@ export const settleBaseRadarCarRadio = (viewer) => {
   }, [])
   newData.forEach((node) => {
     const baseUri = Math.random() < 0.5 ? FactoryComplex : OfficeBuilding
-    if (node.label.includes('基地')) {
+    if (node.label.includes($t('base'))) {
       baseObj[node.id] = importModel(viewer, baseUri, node.position, {
         id: node.id,
         name: node.label,
@@ -95,7 +96,7 @@ export const settleBaseRadarCarRadio = (viewer) => {
           scale: 1000
         }
       })
-    } else if (node.label.includes('雷达')) {
+    } else if (node.label.includes($t('radar'))) {
       radarObj[node.id] = importModel(viewer, radar_dynamic, node.position, {
         id: node.id,
         name: node.label,
@@ -123,9 +124,9 @@ function setBasePosition(data) {
     if (item.position && item.children) {
       item.children.forEach((issue) => {
         const parentPos = item.position
-        if (issue.label.includes('基地')) {
+        if (issue.label.includes($t('base'))) {
           issue.position = parentPos
-        } else if (issue.label.includes('雷达')) {
+        } else if (issue.label.includes($t('radar'))) {
           issue.position = parentPos.map((l) => {
             return l ? getRandomPosition(l, 10) : l
           })
@@ -148,10 +149,10 @@ function getTargetsData(basePos = viewPosition) {
       position: [lon - 0.202, lat - 0.12, 0],
       children: [{
         id: 'jd1-1jd',
-        label: '1-1基地'
+        label: `1-1${$t('base')}`
       }, {
         id: 'jd1-1ld',
-        label: '1-1雷达'
+        label: `1-1${$t('radar')}`
       }]
     },
     {
@@ -160,10 +161,10 @@ function getTargetsData(basePos = viewPosition) {
       position: [lon + 0.3342, lat - 0.19, 0],
       children: [{
         id: 'jd1-2jd',
-        label: '1-2基地'
+        label: `1-2${$t('base')}`
       }, {
         id: 'jd1-2ld',
-        label: '1-2雷达'
+        label: `1-2${$t('radar')}`
       }]
     },
     {
@@ -172,10 +173,10 @@ function getTargetsData(basePos = viewPosition) {
       position: [lon + 0.4942, lat - 0.07, 0],
       children: [{
         id: 'jd1-3jd',
-        label: '1-3基地'
+        label: `1-3${$t('base')}`
       }, {
         id: 'jd1-3ld',
-        label: '1-3雷达'
+        label: `1-3${$t('radar')}`
       }]
     },
     {
@@ -184,10 +185,10 @@ function getTargetsData(basePos = viewPosition) {
       position: [lon + 0.3342, lat + 0.45, 0],
       children: [{
         id: 'jd1-4jd',
-        label: '1-4基地'
+        label: `1-4${$t('base')}`
       }, {
         id: 'jd1-4ld',
-        label: '1-4雷达'
+        label: `1-4${$t('radar')}`
       }]
     }
   ]

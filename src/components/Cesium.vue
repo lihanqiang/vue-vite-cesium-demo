@@ -13,6 +13,9 @@
       <img :src="play" alt="">
     </div>
   </div>
+  <select v-model="langModel">
+    <option v-for="l in Object.keys(lang)" :key="l" :value="l">{{ l }}</option>
+  </select>
 </template>
 
 <script setup>
@@ -49,6 +52,7 @@ import { setRiverDynamic } from '@/cesiumUtils/riverDynamic'
 import { setTrackPlane } from '@/cesiumUtils/trackPalne'
 import { setWhiteBuild } from '@/cesiumUtils/whiteBuild'
 import { addEcharts } from '@/cesiumUtils/addEcharts'
+import { langRef, lang } from '@/cesiumUtils/i18n'
 
 import Measure from '@/cesiumUtils/cesiumMeasure'
 import Panel from '@/components/Panel.vue'
@@ -67,6 +71,8 @@ let measureTool
 let viewer3D = null
 
 const addresses = []
+
+const langModel = langRef
 
 const dialogVisible = ref(true)
 const videoShow = ref(false)
@@ -426,7 +432,7 @@ onMounted(() => {
 <style lang="scss">
 .measure-div{
   position: absolute;
-  right: 115px;
+  right: 181px;
   top: 7px;
   z-index: 1;
   .op-btn{
@@ -444,6 +450,27 @@ onMounted(() => {
       background: #48b;
       border-color: #aef;
     }
+  }
+}
+select {
+  position: fixed;
+  right: 120px;
+  top: 7px;
+  z-index: 1;
+  width: 60px;
+  height: 32px;
+  border-radius: 4px;
+  background: #303336;
+  border: 1px solid #444;
+  color: #edffff;
+  cursor: pointer;
+  &:hover {
+    background: #48b;
+    border-color: #aef;
+    box-shadow: 0 0 8px #fff;
+  }
+  &:focus-visible {
+    outline: 0;
   }
 }
 </style>

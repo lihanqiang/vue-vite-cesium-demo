@@ -1,5 +1,6 @@
 /* eslint-disable no-underscore-dangle */
 import Cesium from '../importCesium'
+import { $t } from '@/cesiumUtils/i18n'
 
 export default class ImportPlane {
   /**
@@ -87,7 +88,7 @@ export default class ImportPlane {
           const lon = Cesium.Math.toDegrees(cartographic.longitude)
           const lat = Cesium.Math.toDegrees(cartographic.latitude)
           const { height } = cartographic
-          const nowText = `飞机 经度：${lon.toFixed(2)}° 纬度：${lat.toFixed(2)}° 高度：${height.toFixed(2)}m, 速度：${tarentity.speed.toFixed(2)}m/s`
+          const nowText = `${$t('plane longitude:')}${lon.toFixed(2)}° 纬度：${lat.toFixed(2)}° 高度：${height.toFixed(2)}m, 速度：${tarentity.speed.toFixed(2)}m/s`
           // 不同时更新
           if (nowText !== tarentity.label.text) {
             tarentity.label.text = nowText
@@ -188,7 +189,7 @@ export default class ImportPlane {
           const lat1 = Cesium.Math.toDegrees(cartographic1.latitude)
           const height1 = cartographic1.height
           // 获取最短的路径, 连接最近节点
-          const latestEntityPosition = this.getLatestEntityPosition(targetPos, lon1, lat1, height1)
+          const latestEntityPosition = this.getNearestEntityPosition(targetPos, lon1, lat1, height1)
           return Cesium.Cartesian3.fromDegreesArrayHeights([lon1, lat1, height1, ...latestEntityPosition], Cesium.Ellipsoid.WGS84, result)
         }, false),
         width: 2,
@@ -239,7 +240,7 @@ export default class ImportPlane {
    * @param {*} height1 // 目标的高度
    * @memberof ImportPlane
    */
-  getLatestEntityPosition(poss, lon1, lat1, height1) {
+  getNearestEntityPosition(poss, lon1, lat1, height1) {
     const distanceObj = {}
     poss.forEach((item) => {
       const lon2 = item[0]

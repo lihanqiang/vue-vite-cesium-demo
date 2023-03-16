@@ -1,11 +1,12 @@
 /* eslint-disable */
+// rainy globally
 import Cesium from '@/cesiumUtils/cesium'
 
 export default class RainEffect {
   constructor(viewer, options) {
     if (!viewer) throw new Error('no viewer object!')
     options = options || {}
-    // 倾斜角度,负数向右,正数向左
+    // bias angle
     this.tiltAngle = Cesium.defaultValue(options.tiltAngle, 0.6)
     this.rainSize = Cesium.defaultValue(options.rainSize, 0.3)
     this.rainSpeed = Cesium.defaultValue(options.rainSpeed, 60.0)
@@ -22,7 +23,7 @@ export default class RainEffect {
         rainSize: () => this.rainSize,
         rainSpeed: () => this.rainSpeed
       }
-      // 模糊效果
+      // blur
       // textureScale: 0.1
 
     })

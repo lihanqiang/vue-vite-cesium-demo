@@ -1,5 +1,6 @@
 import * as Cesium from 'cesium'
 import { setStaticRadar } from '@/cesiumUtils/radarStatic'
+import { $t } from './i18n'
 
 export const setRadarStaticScan = (viewer, active) => {
   const lng = 110
@@ -20,9 +21,9 @@ export const setRadarStaticScan = (viewer, active) => {
     orientation: Cesium.Transforms.headingPitchRollQuaternion(
       Cesium.Cartesian3.fromDegrees(lng, lat, 340000),
       new Cesium.HeadingPitchRoll(
-        Cesium.Math.toRadians(10), // 以地平面为基准旋转
-        Cesium.Math.toRadians(0), // 空中旋转
-        Cesium.Math.toRadians(0) // 空中翻滚
+        Cesium.Math.toRadians(10),
+        Cesium.Math.toRadians(0),
+        Cesium.Math.toRadians(0)
       )
     ),
     ellipsoid: {
@@ -35,28 +36,25 @@ export const setRadarStaticScan = (viewer, active) => {
       stackPartitions: 36
     }
   })
-  setStaticRadar(viewer, 'radar1', '雷达1', [lng + d, lat, 0])
-  setStaticRadar(viewer, 'radar2', '雷达2', [lng - d, lat, 0])
-
-  // let ellipsoid = viewer.entities.getById('ellipsoid')
-  // console.log(ellipsoid.position.getValue(Cesium.JulianDate.now()))
+  setStaticRadar(viewer, 'radar1', $t('radar 1'), [lng + d, lat, 0])
+  setStaticRadar(viewer, 'radar2', $t('radar 2'), [lng - d, lat, 0])
 
   const radar1 = viewer.entities.getById('radar1')
   const radar2 = viewer.entities.getById('radar2')
   radar1.orientation = Cesium.Transforms.headingPitchRollQuaternion(
     Cesium.Cartesian3.fromDegrees(lng + d, lat, 0),
     new Cesium.HeadingPitchRoll(
-      Cesium.Math.toRadians(50), // 以地平面为基准旋转
-      Cesium.Math.toRadians(0), // 空中旋转
-      Cesium.Math.toRadians(0) // 空中翻滚
+      Cesium.Math.toRadians(50),
+      Cesium.Math.toRadians(0),
+      Cesium.Math.toRadians(0)
     )
   )
   radar2.orientation = Cesium.Transforms.headingPitchRollQuaternion(
     Cesium.Cartesian3.fromDegrees(lng - d, lat, 0),
     new Cesium.HeadingPitchRoll(
-      Cesium.Math.toRadians(230), // 以地平面为基准旋转
-      Cesium.Math.toRadians(0), // 空中旋转
-      Cesium.Math.toRadians(0) // 空中翻滚
+      Cesium.Math.toRadians(230),
+      Cesium.Math.toRadians(0),
+      Cesium.Math.toRadians(0)
     )
   )
 }

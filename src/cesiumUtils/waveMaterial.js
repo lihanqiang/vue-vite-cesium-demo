@@ -1,6 +1,5 @@
-// 波形材质
+// WaveMaterial
 /* eslint-disable */
-// 雷达扫描波形材质
 import Cesium from '@/cesiumUtils/cesium'
 // import { Vector4 } from 'three'
 export default class WaveMaterialProperty {

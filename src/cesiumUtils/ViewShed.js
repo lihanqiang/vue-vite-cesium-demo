@@ -24,8 +24,7 @@ function getPitch(fromPosition, toPosition) {
 }
 
 /**
- * 可视域分析。
- *
+ * ViewShedStage
  * @author Jack
  * @alias ViewShedStage
  * @class

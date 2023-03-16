@@ -1,4 +1,5 @@
 /* eslint-disable */
+// snowy globally
 import Cesium from '@/cesiumUtils/cesium'
 
 export default class SnowEffect {

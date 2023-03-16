@@ -3,15 +3,14 @@
 /* eslint-disable no-underscore-dangle */
 /* eslint-disable class-methods-use-this */
 import Cesium from '@/cesiumUtils/cesium'
+import { $t } from '@/cesiumUtils/i18n'
 
 export default class ImportPlane {
   /**
    *Creates an instance of ImportPlane.
-    * @param {*} tc 绕飞时间
-    * @param {*} viewer 需要传入
-    * @param {*} options.uri 模型的uri 需要传入
-    * @param {*} options.position 模型的位置经纬度高度数组 需要传入
-    * @param {*} options.vs 模型的速度
+    * @param {*} viewer required
+    * @param {*} options.uri model uri, required
+    * @param {*} options.position [lon, lat, hei] of model, required
     * @memberof ImportPlane
   */
   constructor(viewer, options) {
@@ -33,7 +32,7 @@ export default class ImportPlane {
     this.InitPlane()
   }
 
-  // 用于加航线，随机生成飞机的id
+  // generate random id
   randomString(e) {
     e = e || 32
     const t = 'ABCDEFGHJKMNPQRSTWXYZabcdefhijkmnprstwxyz2345678'
@@ -44,19 +43,15 @@ export default class ImportPlane {
   }
 
   /**
-   * 计算heading
-   * A,B是三维坐标数组
+   * compute heading
+   * @param A {[lon, lat, hei]}
+   * @param B {[lon, lat, hei]}
    * @memberof ImportPlane
    */
   getHeading(A, B) {
     const transform = Cesium.Transforms.eastNorthUpToFixedFrame(A)
-    // 向量AB
     const positionvector = Cesium.Cartesian3.subtract(B, A, new Cesium.Cartesian3())
-    // 因transform是将A为原点的eastNorthUp坐标系中的点转换到世界坐标系的矩阵
-    // AB为世界坐标中的向量
-    // 因此将AB向量转换为A原点坐标系中的向量，需乘以transform的逆矩阵。
     const vector = Cesium.Matrix4.multiplyByPointAsVector(Cesium.Matrix4.inverse(transform, new Cesium.Matrix4()), positionvector, new Cesium.Cartesian3())
-    // 归一化
     const direction = Cesium.Cartesian3.normalize(vector, new Cesium.Cartesian3())
     // heading
     const heading = Math.atan2(direction.y, direction.x) - Cesium.Math.PI_OVER_TWO
@@ -64,8 +59,9 @@ export default class ImportPlane {
   }
 
   /**
-   * 计算pitch
-   * A,B是三维坐标数组
+   * compute pitch
+   * @param A {[lon, lat, hei]}
+   * @param B {[lon, lat, hei]}
    * @memberof ImportPlane
    */
   getPitch(A, B) {
@@ -73,12 +69,10 @@ export default class ImportPlane {
     const vector = Cesium.Cartesian3.subtract(B, A, new Cesium.Cartesian3())
     const direction = Cesium.Matrix4.multiplyByPointAsVector(Cesium.Matrix4.inverse(transfrom, transfrom), vector, vector)
     Cesium.Cartesian3.normalize(direction, direction)
-    // 因为direction已归一化，斜边长度等于1，所以余弦函数等于direction.z
     return Cesium.Math.PI_OVER_TWO - Cesium.Math.acosClamped(direction.z)
   }
 
   /**
-   * 将点转为数组
    * @memberof ImportPlane
    */
   getPosition(positions) {
@@ -101,15 +95,15 @@ export default class ImportPlane {
     return arr
   }
 
-  // 生成实体
+  // generate entity
   InitPlane() {
-    // 控制飞机
+    // control plane
     const { viewer } = this
     const { scene, camera } = viewer
     const hpRoll = new Cesium.HeadingPitchRoll(0, 0, 0)
     const A1 = Cesium.Cartesian3.fromDegrees(this.arr[0][0], this.arr[0][1], this.arr[0][2])
     const B1 = Cesium.Cartesian3.fromDegrees(this.arr[1][0], this.arr[1][1], this.arr[1][2])
-    // 起点航向
+    // hpr
     hpRoll.heading = this.getHeading(A1, B1)
     hpRoll.pitch = this.getPitch(A1, B1)
     const fixedFrameTransform = Cesium.Transforms.localFrameToFixedFrameGenerator(
@@ -121,10 +115,9 @@ export default class ImportPlane {
     const center = new Cesium.Cartesian3()
     const hpRange = new Cesium.HeadingPitchRange()
     let speedVector = new Cesium.Cartesian3()
-    // 飞机模型
+    // plane entity
     this.entity = scene.primitives.add(
       Cesium.Model.fromGltf({
-        // 飞机模型位置
         url: this.uri,
         modelMatrix: Cesium.Transforms.headingPitchRollToFixedFrame(
           cartesian3,
@@ -157,7 +150,6 @@ export default class ImportPlane {
       hpRange.range = r * 50.0
     //   camera.lookAt(center, hpRange)
     })
-    // 飞机移动函数
     const _this = this
     this.preUpdate = viewer.scene.preUpdate.addEventListener((scene, time) => {
       _this.i++
@@ -175,7 +167,6 @@ export default class ImportPlane {
         speedVector,
         cartesian3
       )
-      // 飞机移动参数
       cartesian3 = Cesium.Cartesian3.fromDegrees(_this.arr[_this.i][0], _this.arr[_this.i][1], _this.arr[_this.i][2])
       Cesium.Transforms.headingPitchRollToFixedFrame(
         cartesian3,
@@ -192,9 +183,9 @@ export default class ImportPlane {
           this.position[0], this.position[1] - 0.1, 10000
         ),
         orientation: {
-        // 指向
+          // heading
           heading: Cesium.Math.toRadians(0, 0),
-          // 视角
+          // pitch
           pitch: Cesium.Math.toRadians(-25),
           roll: 0.0
         }
@@ -203,11 +194,11 @@ export default class ImportPlane {
   }
 
   /**
-   * 显示飞机的探测区域
+   * plane survey area
    * @memberof ImportPlane
    */
   addCylinder() {
-    // 注意高度要减半
+    // half height
     const position = [this.position[0], this.position[1], this.position[2] / 2]
     const cartesian3 = Cesium.Cartesian3.fromDegrees(...position)
     const modelMatrix = Cesium.Transforms.eastNorthUpToFixedFrame(cartesian3)
@@ -219,7 +210,7 @@ export default class ImportPlane {
         vertexFormat: Cesium.VertexFormat.DEFAULT
       }),
       id: this.randomString(8),
-      name: '相机探测区域',
+      name: $t('survey area'),
       modelMatrix,
       attributes: {
         color: Cesium.ColorGeometryInstanceAttribute.fromColor(
@@ -236,7 +227,7 @@ export default class ImportPlane {
   }
 
   /**
-   * 显示飞机的航迹
+   * track of plane
    * @memberof ImportPlane
    */
   addPlanePath() {
@@ -245,7 +236,7 @@ export default class ImportPlane {
     let temp = 0
     const defaultConf = {
       id: this.randomString(9),
-      name: '飞机的航迹',
+      name: $t('track of plane'),
       polyline: {
         positions: new Cesium.CallbackProperty((time, result) => {
           if (temp < 75) {
@@ -272,12 +263,12 @@ export default class ImportPlane {
   }
 
   /**
-   * @param {*} targetPos // 连接其他model的位置的二维数组
+   * @param {*} targetPos // target's position array
    * @memberof ImportPlane
    */
   traceTarget(targetPos) {
     const defaultConf = {
-      name: '连线',
+      name: $t('trace line'),
       polyline: {
         positions: new Cesium.CallbackProperty((time, result) => {
           const sourpos = this.entity.position.getValue(time)
@@ -285,8 +276,8 @@ export default class ImportPlane {
           const lon1 = Cesium.Math.toDegrees(cartographic1.longitude)
           const lat1 = Cesium.Math.toDegrees(cartographic1.latitude)
           const height1 = cartographic1.height
-          // 获取最短的路径, 连接最近节点
-          const latestEntityPosition = this.getLatestEntityPosition(targetPos, lon1, lat1, height1)
+          // compute nearest route, connect nearest node
+          const latestEntityPosition = this.getNearestEntityPosition(targetPos, lon1, lat1, height1)
           return Cesium.Cartesian3.fromDegreesArrayHeights([lon1, lat1, height1, ...latestEntityPosition], Cesium.Ellipsoid.WGS84, result)
         }, false),
         width: 2,
@@ -300,12 +291,12 @@ export default class ImportPlane {
   }
 
   /**
-   * @param {*} sat // 连接卫星entity
+   * @param {*} sat // trace sat entity
    * @memberof ImportPlane
    */
   traceSat(sat) {
     const defaultConf = {
-      name: '卫星连线',
+      name: $t('track of sat'),
       polyline: {
         positions: new Cesium.CallbackProperty((time, result) => {
           const sourpos = this.entity.position.getValue(time)
@@ -331,13 +322,13 @@ export default class ImportPlane {
   }
 
   /**
-   * @param {*} targetPos // 连接其他model的位置的二维数组
-   * @param {*} lon1 // 目标的经度
-   * @param {*} lat1 // 目标的纬度
-   * @param {*} height1 // 目标的高度
-   * @memberof ImportPlane
+   * @param {*} targetPos // target entity pos array
+   * @param {*} lon1 // target's lon
+   * @param {*} lat1 // target's lat
+   * @param {*} height1 // target's height
+   * @memberof ImportModel
    */
-  getLatestEntityPosition(poss, lon1, lat1, height1) {
+  getNearestEntityPosition(poss, lon1, lat1, height1) {
     const distanceObj = {}
     poss.forEach((item) => {
       const lon2 = item[0]
@@ -351,13 +342,12 @@ export default class ImportPlane {
   }
 
   /**
-   * 返回距离单位米
-   * @param {*} startPosition // 源点的经纬度高度数组
-   * @param {*} endPosition // 终点的经纬度高度数组
+   * return distance of two points
+   * @param {[]} startPosition // source's [lon, lat, hei]
+   * @param {[]} endPosition // target's [lon, lat, hei]
    * @memberof ImportPlane
    */
   getLineDis(startPosition, endPosition) {
-  // 使用cesium的对象中的方法获取距离数据，而不是根据坐标转换计算，
     const geodesic = new Cesium.EllipsoidGeodesic()
     const startCartographic = Cesium.Cartographic.fromDegrees(...startPosition)
     const endCartographic = Cesium.Cartographic.fromDegrees(...endPosition)
@@ -365,7 +355,7 @@ export default class ImportPlane {
     return geodesic.surfaceDistance
   }
 
-  // 删除模型
+  // delete model
   deleteModel() {
     this.viewer.scene.primitives.remove(this.entity)
   }

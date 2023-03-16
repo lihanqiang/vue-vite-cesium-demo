@@ -35,7 +35,6 @@ const generateDis = (range = 500) => {
   return Math.random() * range - range
 }
 
-// 模拟每个点固定向外偏移({x}m, {y}km, {z}km)(跟时间无关，每帧调用此函数)
 const animatePrimitive = (primitive, pos) => {
   const positionScratch = new Cesium.Cartesian3()
   Cesium.Cartesian3.clone(primitive.position, positionScratch)
@@ -60,7 +59,7 @@ const getUniqPoints = (lineArr) => {
   return uniqArr
 }
 
-// 划线
+// draw line
 const drawlinePrimitives = (viewer, lineRelations) => {
   lines = viewer.scene.primitives.add(new Cesium.PolylineCollection())
   lineRelations.forEach(({ from, to }) => {
@@ -70,13 +69,13 @@ const drawlinePrimitives = (viewer, lineRelations) => {
       positions: [from.positionOnEllipsoid, to.positionOnEllipsoid],
       width: 1,
       material: Cesium.Material.fromType(Cesium.Material.PolylineDashType, {
-        color: Cesium.Color.CYAN, // 线条颜色
-        gapColor: Cesium.Color.TRANSPARENT, // 间隔颜色
-        dashLength: 5 // 短划线长度
+        color: Cesium.Color.CYAN,
+        gapColor: Cesium.Color.TRANSPARENT,
+        dashLength: 5
       })
       // material: new Cesium.PolylineTrailLinkMaterialProperty(Cesium.Color.RED, 3000, 1),
     })
-    // 获取去重的点集合
+    // uniq points
     const uniqDots = getUniqPoints(lineRelations)
     preRender = viewer.scene.preRender.addEventListener(() => {
       uniqDots.forEach((each) => {
@@ -89,7 +88,7 @@ const drawlinePrimitives = (viewer, lineRelations) => {
         const splited = l.id.split('-')
         const fromId = splited[0]
         const toId = splited[1]
-        // 找source、target的位置
+        // find source target position
         const source = uniqDots.find(({ id }) => `${id}` === fromId)
         const target = uniqDots.find(({ id }) => `${id}` === toId)
         const sourcePos = source.billboard.position
@@ -101,7 +100,6 @@ const drawlinePrimitives = (viewer, lineRelations) => {
 }
 
 export const randomGeneratePoints = (viewer, count) => {
-  // 申明点渲染集合
   const pointPrimitives = viewer.scene.primitives.add(new Cesium.PointPrimitiveCollection())
   const posArr = generatePos(count)
   posArr.forEach((positionOnEllipsoid) => {
@@ -134,9 +132,9 @@ export const setCircles = (viewer, positionOnEllipsoid, id, startColorOpcity = 0
 }
 /**
  *
- * @param {Viwer} viewer 实例
- * @param {Number} count 点数量
- * @param {Number} imgIndex 默认 undefined
+ * @param {Viwer} viewer viewer
+ * @param {Number} count points num
+ * @param {Number} imgIndex default undefined
  */
 export const randomGenerateBillboards = (viewer, count, imgIndex) => {
   const posArr = generatePos(count)
@@ -183,9 +181,9 @@ export const randomGenerateBillboards = (viewer, count, imgIndex) => {
       verticalOrigin: Cesium.VerticalOrigin.BOTTOM,
       distanceDisplayCondition: new Cesium.DistanceDisplayCondition(0, 1e8),
       scaleByDistance: new Cesium.NearFarScalar(10000000, 1, 10000001, 0),
-      pixelOffset: new Cesium.Cartesian2(0.0, -facilityHeight) // 在原位置上偏移，防止叠在一起看不到了
-      // pixelOffsetScaleByDistance: new Cesium.NearFarScalar(1.0e3, 1.0, 1.5e6, 0.0), // 随着距离改变偏移量
-      // translucencyByDistance: new Cesium.NearFarScalar(1.0e3, 1.0, 1.5e6, 0.1)// 随着距离改变透明度
+      pixelOffset: new Cesium.Cartesian2(0.0, -facilityHeight) // pixelOffset
+      // pixelOffsetScaleByDistance: new Cesium.NearFarScalar(1.0e3, 1.0, 1.5e6, 0.0), // change pixelOffset Scale By Distance
+      // translucencyByDistance: new Cesium.NearFarScalar(1.0e3, 1.0, 1.5e6, 0.1)// change translucency By Distance
     })
     // lines
     if (i < posArr.length && i) {

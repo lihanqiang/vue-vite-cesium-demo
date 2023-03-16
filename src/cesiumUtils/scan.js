@@ -20,7 +20,7 @@ function computeCirclularFlight(x1, y1, x2, y2, fx, angle) {
   return positionArr
 }
 
-// 根据第一个点 偏移距离 角度 求取第二个点的坐标
+// compute target point postion according to first point position radius and heading
 function calcPoints(x1, y1, radius, heading) {
   const m = Cesium.Transforms.eastNorthUpToFixedFrame(Cesium.Cartesian3.fromDegrees(x1, y1))
   const rx = radius * Math.cos((heading * Math.PI) / 180.0)

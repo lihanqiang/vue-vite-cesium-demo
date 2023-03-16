@@ -1,14 +1,15 @@
 import Cesium from '@/cesiumUtils/cesium'
+import { $t } from './i18n'
 
 export default class Roaming {
   /**
      *Creates an instance of satellite roaming.
-     * @param {*} viewer 需要传入
-     * @param {*} options.modeluri 模型的uri 需要传入
-     * @param {*} options.start 开始节点 不需要传入
-     * @param {*} options.stop  结束节点 不需要传入
-     * @param {*} options.Lines  点集合 需要传入
-     * @param {*} options.isPathShow 路径是否显示 默认显示
+     * @param {*} viewer required
+     * @param {*} options.modeluri model uri, required
+     * @param {*} options.start start point
+     * @param {*} options.stop  end point
+     * @param {*} options.Lines  lines array, required
+     * @param {*} options.isPathShow whether show path, default true
      * @memberof Roaming
      */
   constructor(viewer, options) {
@@ -31,8 +32,8 @@ export default class Roaming {
   /**
      *
      *
-     * @param {*} Lines 点集合
-     * @param {*} isCone 是否是圆锥区域
+     * @param {*} Lines lines array
+     * @param {*} isCone is cone
      * @returns
      * @memberof Roaming
      */
@@ -45,9 +46,8 @@ export default class Roaming {
     this.viewer.clock.startTime = start.clone()
     this.viewer.clock.stopTime = stop.clone()
     this.viewer.clock.currentTime = start.clone()
-    // 循环执行
     this.viewer.clock.clockRange = Cesium.ClockRange.LOOP_STOP // Loop at the end
-    // 时间速率，数字越大时间过的越快
+    // multiplier much is faster
     // this.viewer.clock.multiplier = 10
 
     this.viewer.timeline.zoomTo(start, stop)
@@ -62,18 +62,18 @@ export default class Roaming {
 
   /**
      *
-     * 画卫星和卫星的路径
-     * @param {*} position computeFlight计算的属性
-     * @param {*} start 开始时间节点
-     * @param {*} stop 结束时间节点
+     * sat and sat route
+     * @param {*} position computeFlight returned position
+     * @param {*} start start time
+     * @param {*} stop end time
      * @memberof Roaming
      */
   InitSatellite(position, start, stop) {
     this.entity = this.viewer.entities.add({
       id: 'satt',
-      name: '卫星',
+      name: $t('satellite'),
       label: {
-        text: '卫星',
+        text: $t('satellite'),
         backgroundPadding: new Cesium.Cartesian2(7, 7),
         showBackground: true,
         pixelOffset: new Cesium.Cartesian2(0, -100),
@@ -88,21 +88,21 @@ export default class Roaming {
         start,
         stop
       })]),
-      // 位置
+      // position
       position,
-      // 计算朝向
+      // orientation
       orientation: new Cesium.VelocityOrientationProperty(position),
-      // 加载模型
+      // load model
       model: {
-        // 模型路径
+        // model uri
         uri: this.url,
-        // 模型最小刻度
+        // minimumPixelSize
         minimumPixelSize: 20000,
         maximumSize: 20000,
-        // 设置模型最大放大大小
+        // maximumScale
         maximumScale: 200000,
         // scale: 20000,
-        runAnimations: true // 是否运行模型中的动画效果
+        runAnimations: true // runAnimations
       },
       path: {
         resolution: 1,
@@ -113,9 +113,9 @@ export default class Roaming {
         width: 2
       }
     })
-    // 设置连线的曲度
+    // setInterpolationOptions
     this.entity.position.setInterpolationOptions({
-      // 曲度
+      // interpolationDegree
       interpolationDegree: 3,
       // 点插值 (接近圆)
       interpolationAlgorithm: Cesium.LagrangePolynomialApproximation
@@ -124,17 +124,16 @@ export default class Roaming {
       // // // 点插值 (接近半圆)
       // interpolationAlgorithm: Cesium.HermitePolynomialApproximation
     })
-    // 设置相机视角默认在飞机上
     // this.viewer.zoomTo(this.entity)
     // this.viewer.trackedEntity = this.entity
   }
 
   /**
      *
-     * 卫星下面的锥形
-     * @param {*} position computeFlight计算的属性
-     * @param {*} start 开始时间节点
-     * @param {*} stop 结束时间节点
+     * radar survey area
+     * @param {*} position computeFlight returned position
+     * @param {*} start start time
+     * @param {*} stop end time
      * @memberof Roaming
      */
   InitRadarArea(position, start, stop) {
@@ -143,10 +142,10 @@ export default class Roaming {
         start,
         stop
       })]),
-      name: '卫星探测区域',
-      // 位置
+      name: $t('sat survey area'),
+      // position
       position,
-      // 计算朝向
+      // orientation
       orientation: new Cesium.VelocityOrientationProperty(position),
       cylinder: {
         HeightReference: Cesium.HeightReference.CLAMP_TO_GROUND,
@@ -159,19 +158,15 @@ export default class Roaming {
         outlineColor: Cesium.Color.BLUE.withAlpha(0.1)
       }
     })
-    // 设置连线的曲度
     this.entity2.position.setInterpolationOptions({
-      // 曲度
       interpolationDegree: 5,
-      // 点插值 (接近圆)
       interpolationAlgorithm: Cesium.LagrangePolynomialApproximation
     })
   }
 
   /**
-   *漫游的暂停和继续
-   *
-   * @param {*} state bool类型 false为暂停，ture为继续
+   * roam pause and continue
+   * @param {*} state boolean false pause, ture continue
    * @memberof Roaming
    */
   PauseOrContinue(state) {
@@ -179,9 +174,8 @@ export default class Roaming {
   }
 
   /**
-   *改变飞行的速度
-   *
-   * @param {*} value  整数类型
+   * change roaming speed
+   * @param {*} value  speed num (int)
    * @memberof Roaming
    */
   ChangeRoamingSpeed(value) {
@@ -189,8 +183,7 @@ export default class Roaming {
   }
 
   /**
-   *
-   *取消漫游
+   * cancel roaming
    * @memberof Roaming
    */
   EndRoaming() {

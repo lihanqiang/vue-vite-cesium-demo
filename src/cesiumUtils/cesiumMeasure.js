@@ -1,5 +1,6 @@
 /* eslint-disable */
 import * as Cesium from 'cesium'
+import { $t } from '@/cesiumUtils/i18n'
 
 var btnPosition
 var btnDistance
@@ -7,8 +8,8 @@ var btnArea
 var btnClear
 /*
  * params: option
- *     option.viewer:required 3D viwer
- *     option.target:required id of container
+ * option.viewer:required 3D viwer
+ * option.target:required id of container
  * */
 function Measure(option) {
   this.viewer = option.viewer
@@ -17,7 +18,7 @@ function Measure(option) {
 
   var me = this
   btnPosition = document.createElement('button')
-  btnPosition.innerHTML = 'Lon,lat,height'
+  btnPosition.innerHTML = $t('Lon,lat,height')
   btnPosition.onclick = function() {
     if (btnPosition.style.background === '') {
       btnPosition.style.background = '#66b0e5bf'
@@ -36,7 +37,7 @@ function Measure(option) {
   this.dom.appendChild(btnPosition)
 
   btnDistance = document.createElement('button')
-  btnDistance.innerHTML = 'Distance'
+  btnDistance.innerHTML = $t('Distance')
   btnDistance.onclick = function() {
     if (btnDistance.style.background === '') {
       btnDistance.style.background = '#66b0e5bf'
@@ -55,7 +56,7 @@ function Measure(option) {
   this.dom.appendChild(btnDistance)
 
   btnArea = document.createElement('button')
-  btnArea.innerHTML = 'Area'
+  btnArea.innerHTML = $t('Range')
   btnArea.onclick = function() {
     if (btnArea.style.background === '') {
       btnArea.style.background = '#66b0e5bf'
@@ -74,7 +75,7 @@ function Measure(option) {
   this.dom.appendChild(btnArea)
 
   btnClear = document.createElement('button')
-  btnClear.innerHTML = 'Clear (right click to cancel)'
+  btnClear.innerHTML = $t('Clear (right click to cancel)')
   btnClear.onclick = function() {
     me._handlerDestroy()
     // delete cached id
@@ -126,7 +127,7 @@ Measure.prototype._measurePointLocation = function() {
     height = height >= 0 ? height : 0
     const heightF = height.toFixed(2) + 'm'
 
-    const text = `(${lngs}，${lats}，${heightF})`
+    const text = `(${lngs}, ${lats}, ${heightF})`
     var floatingPoint = viewer.entities.add({
       name: 'P_Point_1',
       position: Cesium.Cartesian3.fromDegrees(lng, lat, height),
@@ -148,7 +149,7 @@ Measure.prototype._measurePointLocation = function() {
     })
     me.measureIds.push(floatingPoint.id)
   }, Cesium.ScreenSpaceEventType.LEFT_CLICK)
-  handler.setInputAction(function(movement) {
+  handler.setInputAction(function() {
     handler.destroy()
     handler = undefined
     me._measureFinish()
@@ -378,7 +379,7 @@ Measure.prototype._measureFRCSpace = function() {
     }
   }, Cesium.ScreenSpaceEventType.LEFT_CLICK)
 
-  handler.setInputAction(function(movement) {
+  handler.setInputAction(function() {
     handler.destroy()
     handler = undefined
     positions.pop()
@@ -428,7 +429,7 @@ Measure.prototype._measureFRCSpace = function() {
     geodesic.setEndPoints(point1cartographic, point2cartographic)
     var s = geodesic.surfaceDistance
     var cartoPts = [point1cartographic]
-    for (var jj = 1000; jj < s; jj += 1000) { // 分段采样计算距离
+    for (var jj = 1000; jj < s; jj += 1000) {
       var cartoPt = geodesic.interpolateUsingSurfaceDistance(jj)
       cartoPts.push(cartoPt)
     }
@@ -522,7 +523,7 @@ Measure.prototype._measureAreaSpace = function() {
     me.measureIds.push(floatingPoint.id)
   }, Cesium.ScreenSpaceEventType.LEFT_CLICK)
 
-  handler.setInputAction(function(movement) {
+  handler.setInputAction(function() {
     handler.destroy()
     positions.pop()
     if (positions.length === 1) {
@@ -704,7 +705,7 @@ Measure.prototype._measureSectorSpace = function() {
     me.measureIds.push(floatingPoint.id)
   }, Cesium.ScreenSpaceEventType.LEFT_CLICK)
 
-  handler.setInputAction(function(movement) {
+  handler.setInputAction(function() {
     handler.destroy()
     positions.pop()
     if (positions.length === 1) {
@@ -777,7 +778,7 @@ Measure.prototype._measureSectorSpace = function() {
     if (angle < 0) {
       angle += Math.PI * 2.0
     }
-    angle = angle * degreesPerRadian // 角度
+    angle = angle * degreesPerRadian // angle
     return angle
   }
 

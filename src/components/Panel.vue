@@ -27,121 +27,122 @@
 import {
   ref, reactive, watchEffect
 } from 'vue'
+import { $t } from '@/cesiumUtils/i18n'
 
 const btns = reactive([
   {
-    label: 'Operations',
+    label: $t('Operations'),
     contents: [
       {
         id: 'billboard',
-        label: 'Generate nodes'
+        label: $t('Generate nodes')
       },
       {
         id: 'sat',
-        label: 'Satellite display '
+        label: $t('Satellite display')
       },
       {
         id: 'vision',
-        label: 'Visual field analysis'
+        label: $t('Visual field analysis')
       },
       {
         id: 'visionAnalysis',
-        label: 'Intervisibility analysis'
+        label: $t('Intervisibility analysis')
       },
       {
         id: 'spreadWall',
-        label: 'Spread wall'
+        label: $t('Spread wall')
       },
       {
         id: 'geojson',
-        label: 'Geojson Load'
+        label: $t('Geojson Load')
       },
       {
         id: 'tilesetFlow',
-        label: 'Tileset Flow'
+        label: $t('Tileset Flow')
       },
       {
         id: 'terrain',
-        label: 'Terrain'
+        label: $t('Terrain')
       },
       {
         id: 'spreadEllipse',
-        label: 'High risk alarm'
+        label: $t('High risk alarm')
       },
       {
         id: 'scan',
-        label: 'Ground radar'
+        label: $t('Ground radar')
       },
       {
         id: 'flyline',
-        label: 'Line link'
+        label: $t('Line link')
       },
       {
         id: 'radarStatic',
-        label: 'Fresnel zone'
+        label: $t('Fresnel zone')
       },
       {
         id: 'radarDynamic',
-        label: 'Air radar'
+        label: $t('Air radar')
       },
       {
         id: 'riverFlood',
-        label: 'River inundation'
+        label: $t('River inundation')
       },
       {
         id: 'riverDynamic',
-        label: 'Dynamic river'
+        label: $t('Dynamic river')
       },
       {
         id: 'trackPlane',
-        label: 'Tracking scan'
+        label: $t('Tracking scan')
       },
       {
         id: 'whiteBuild',
-        label: 'white build'
+        label: $t('white build')
       },
       {
         id: 'addEcharts',
-        label: 'combine Echarts'
+        label: $t('combine Echarts')
       }
     ]
   },
   {
-    label: '天气',
+    label: $t('Weather'),
     contents: [
       {
         id: 'rain',
-        label: 'Rainy'
+        label: $t('Rainy')
       },
       {
         id: 'snow',
-        label: 'Snowy'
+        label: $t('Snowy')
       },
       {
         id: 'fog',
-        label: 'Foggy'
+        label: $t('Foggy')
       }
     ]
   },
   {
-    label: 'Flight demonstration',
+    label: $t('Flight demonstration'),
     exclusive: true,
     contents: [
       {
         id: 'direct',
-        label: 'Fly directly'
+        label: $t('Fly directly')
       },
       {
         id: 'round',
-        label: 'Diversion'
+        label: $t('Diversion')
       },
       {
         id: 'circle',
-        label: 'Circle around'
+        label: $t('Circle around')
       },
       {
         id: 'drone',
-        label: 'UAV detection (video streaming)'
+        label: $t('UAV detection (video streaming)')
       }
     ]
   }
@@ -152,7 +153,7 @@ const emits = defineEmits(['update:visible', 'btnClick'])
 const props = defineProps({
   title: {
     type: String,
-    default: 'menus'
+    default: $t('menus')
   },
   width: {
     type: String,

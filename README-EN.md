@@ -58,10 +58,25 @@ A simple webgis demo with Vue.js(v3.x), Vite and Cesium.js. You are welcomed to 
   ## About RTSP
   In this demo, RTSP is used to achieve real-time video flow pushing, download the file and run the app.
 
-  download link：https://pan.baidu.com/s/1hF95r16J3IbRfRhSdnv6kQ 
+  ### Download
+  download link：https://pan.baidu.com/s/1Hovu2CRr8N7MOlKm1MsPNw?pwd=txvg
 
-  code：amts
-### TIPS
+  ### Installation
+  * unzip the file to dir `D:\rtsp`:
+
+  <img src="https://i.ibb.co/0BFtJ1z/2023-03-16-135523.png" width="50%" alt="preview" />
+
+  * install the file `vc++lib_v2020.8.2.exe` at first.
+
+  ### Running
+  * open `cmd` as administrator, enter into dir `D:/rtsp/h5s-r10.8.0330.20-win64-release`.
+
+  * type in the command `regservice.bat` and press enter.
+
+  * type in the command `h5ss.bat` and press enter.
+
+  * press `UAV detection (video streaming)` button, and now you can see the video streaming running in the upper left corner of the screen.
+## TIPS
 The files `.env.development` and `.env.production` are configs of development and production, the variable `VITE_BUILD_PATH_PREFIX` set `/vue-vite-cesium-demo`, because my website is https://lihanqiang.github.io/vue-vite-cesium-demo/ .
 
 ** In general, set `VITE_BUILD_PATH_PREFIX=''` , and run the command `npm run build` , publish your site, it should be no problem.

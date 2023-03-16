@@ -2,7 +2,7 @@ import Cesium from '@/cesiumUtils/cesium'
 
 let entities = []
 let onTickcallback1
-// 根据第一个点 偏移距离 角度 求取第二个点的坐标
+// compute target point postion according to first point position radius and heading
 function calcPoints(x1 = 105, y1 = 30, radius = 10000, heading = 1, height = 100000) {
   const m = Cesium.Transforms.eastNorthUpToFixedFrame(Cesium.Cartesian3.fromDegrees(x1, y1))
   const rx = radius * Math.cos((heading * Math.PI) / 180.0)
@@ -15,34 +15,24 @@ function calcPoints(x1 = 105, y1 = 30, radius = 10000, heading = 1, height = 100
   return Cesium.Cartesian3.fromDegrees(x2, y2, height)
 }
 
-// 根据两个坐标点,获取Heading(朝向)
 function getHeading(pointA, pointB) {
-  // 建立以点A为原点，X轴为east,Y轴为north,Z轴朝上的坐标系
   const transform = Cesium.Transforms.eastNorthUpToFixedFrame(pointA)
-  // 向量AB
   const positionvector = Cesium.Cartesian3.subtract(pointB, pointA, new Cesium.Cartesian3())
-  // 因transform是将A为原点的eastNorthUp坐标系中的点转换到世界坐标系的矩阵
-  // AB为世界坐标中的向量
-  // 因此将AB向量转换为A原点坐标系中的向量，需乘以transform的逆矩阵。
   const vector = Cesium.Matrix4.multiplyByPointAsVector(Cesium.Matrix4.inverse(transform, new Cesium.Matrix4()), positionvector, new Cesium.Cartesian3())
-  // 归一化
   const direction = Cesium.Cartesian3.normalize(vector, new Cesium.Cartesian3())
   // heading
   const heading = Math.atan2(direction.y, direction.x) - Cesium.Math.PI_OVER_TWO
   return Cesium.Math.TWO_PI - Cesium.Math.zeroToTwoPi(heading)
 }
 
-// 根据两个坐标点,获取Pitch(俯仰角)
 function getPitch(pointA, pointB) {
   const transfrom = Cesium.Transforms.eastNorthUpToFixedFrame(pointA)
   const vector = Cesium.Cartesian3.subtract(pointB, pointA, new Cesium.Cartesian3())
   const direction = Cesium.Matrix4.multiplyByPointAsVector(Cesium.Matrix4.inverse(transfrom, transfrom), vector, vector)
   Cesium.Cartesian3.normalize(direction, direction)
-  // 因为direction已归一化，斜边长度等于1，所以余弦函数等于direction.z
   return Cesium.Math.PI_OVER_TWO - Cesium.Math.acosClamped(direction.z)
 }
 
-// 获取圆形路径上的点
 function getRoutePoints(lng, lat, radius, height) {
   let h = 0
   const points = Array(3600).fill('').map(() => {
@@ -81,10 +71,10 @@ export const setTrackPlane = (viewer, active) => {
         bottomRadius: 0,
         material: new Cesium.WaveMaterialProperty(
           new Cesium.Color(0.1, 1, 0, 0.6),
-          10000, // 循环时长
-          1.0, // 速度
-          10, // 圈数
-          0.2 // 环高
+          10000,
+          1.0,
+          10,
+          0.2
         )
       },
       orientation: new Cesium.CallbackProperty(() => {
@@ -126,7 +116,7 @@ export const setTrackPlane = (viewer, active) => {
       heading += 0.1
       endPoint = calcPoints(105, 32, 200000, heading, 500000)
     })
-    const points = getRoutePoints(105, 32, 200000, 500000) // 获取圆路径上的点
+    const points = getRoutePoints(105, 32, 200000, 500000)
     entities.push(viewer.entities.add({
       polyline: {
         positions: points,
@@ -139,7 +129,6 @@ export const setTrackPlane = (viewer, active) => {
     }))
     const start = Cesium.JulianDate.now()
     const stop = Cesium.JulianDate.addSeconds(start, points.length, new Cesium.JulianDate())
-    // 时间段循环
     viewer.clock.startTime = start.clone()
     viewer.clock.stopTime = stop.clone()
     viewer.clock.currentTime = start.clone()

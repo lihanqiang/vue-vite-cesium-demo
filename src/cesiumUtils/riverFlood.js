@@ -26,7 +26,7 @@ export const setRiverFlood = (viewer, active) => {
             x = 1
           }
           return waterH
-        }, false), // 多边形凸出面高度
+        }, false),
         material: Cesium.Color.BLUE.withAlpha(0.3)
       }
     })

@@ -9,7 +9,7 @@ const { geoserverHost } = require('./public/setting')
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => {
   const isDev = mode === 'development'
-  const proxyHost = isDev ? 'http://localhost:9999/' : geoserverHost
+  const proxyHost = !isDev ? 'http://localhost:9999/' : geoserverHost
   return {
     plugins: [vue(), cesium(), babel()],
     base: './',
@@ -36,7 +36,7 @@ export default defineConfig(({ mode }) => {
       host: '0.0.0.0',
       port: 9999,
       proxy: {
-        '/geoserver_cobalt': {
+        '/geoserver': {
           target: proxyHost, // proxy site
           changeOrigin: true
         },

@@ -1,4 +1,5 @@
 /* eslint-disable */
+// foggy globally
 import Cesium from '@/cesiumUtils/cesium'
 
 export default class FogEffect {
