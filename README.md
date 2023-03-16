@@ -92,7 +92,7 @@ npm run dev or yarn run dev
 
 * 先运行`regservice.bat`，再运行`h5ss.bat`。
 
-* 点击`UAV detection (video streaming)`按钮，在界面坐上角即可看到画面。
+* 点击`UAV detection (video streaming)`按钮，在界面左上角即可看到画面。
 
 ### 说明
 本项目的代码，大部分为自创（70%以上），也有少部分代码借鉴他人，如有侵权问题，请联系删除。
