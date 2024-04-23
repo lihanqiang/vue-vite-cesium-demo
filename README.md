@@ -22,7 +22,7 @@
   -  17、扩散墙;
   -  18、白膜建筑;
   -  19、结合Echarts。
-  -  20、接合rtsp视频推流软件，实现无人机侦察视频实时传输图像；
+  -  20、结合rtsp视频推流软件，实现无人机侦察视频实时传输图像；
 ## 预览
 <img src="https://i.ibb.co/yn50yz5/earth.jpg" width="50%" alt="preview" />
 
