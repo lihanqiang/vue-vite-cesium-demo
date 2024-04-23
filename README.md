@@ -60,7 +60,7 @@
 npm install
 npm run dev
 ```
-Or via yarn
+或者通过`yarn`：
 ```bash
 yarn 
 yarn run dev
