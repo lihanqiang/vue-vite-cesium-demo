@@ -18,7 +18,7 @@ export default class TilesetFlow {
     Cesium.ExperimentalFeatures.enableModelExperimental = true
     const tilesets = this.viewer.scene.primitives.add(new Cesium.Cesium3DTileset({
       // url or site of tilesets
-      url: 'https://lab.earthsdk.com/model/702aa950d03c11e99f7ddd77cbe22fea/tileset.json'
+      url: `${import.meta.env.VITE_BUILD_PATH_PREFIX}/tilesets/buildings/tileset.json`
     }))
     tilesets.readyPromise.then((tileset) => {
       tileset.style = new Cesium.Cesium3DTileStyle({
