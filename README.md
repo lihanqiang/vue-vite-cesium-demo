@@ -1,8 +1,8 @@
 # vue-vite-cesium-demo
 [CN 中文](./README.md) / [EN English](./README-EN.md)
 
-本demo项目使用Vue.js（v3.0）、Vite、Cesium.js进行开发，解决了市面上没有这几个框架同时出现的痛点。本项目有大量现成的解决方案，可根据自己情况使用，在使用之前请阅读并遵循LICENSE协议。
-## 项目包含一下功能
+本demo项目使用Vue.js（v3.0）、Vite、Cesium.js进行开发，解决了市面上没有这几个框架同时出现的痛点。本项目有大量现成的解决方案，可根据自己情况裁剪使用，在使用之前请阅读并遵循LICENSE协议。
+## 项目包含以下功能
   -  1、生成大量节点；
   -  2、卫星与探测区域展示；
   -  3、可视域分析；
@@ -14,15 +14,15 @@
   -  9、地图动态通联展示；
   -  10、菲涅尔区展示；
   -  11、对空雷达区域展示；
-  -  12、河流淹没；
-  -  13、动态河流；
+  -  12、河流淹没（要有地形才能看到效果）；
+  -  13、动态河流（要有地形才能看到效果）；
   -  14、追踪扫描；
   -  15、天气展示：雨、雪、雾；
   -  16、实时绘制飞机飞行轨迹（直飞、绕飞、盘旋）；
-  -  17、接合rtsp视频推流软件，实现无人机侦察视频实时传输图像；
-  -  18、扩散墙;
-  -  19、白膜建筑;
-  -  20、结合Echarts。
+  -  17、扩散墙;
+  -  18、白膜建筑;
+  -  19、结合Echarts。
+  -  20、接合rtsp视频推流软件，实现无人机侦察视频实时传输图像；
 ## 预览
 <img src="https://i.ibb.co/yn50yz5/earth.jpg" width="50%" alt="preview" />
 
@@ -57,8 +57,13 @@
 ### 项目运行
 使用npm（也可以使用yarn）进行项目依赖安装。进入项目根目录运行下列代码：
 ```bash
-npm install or yarn
-npm run dev or yarn run dev
+npm install
+npm run dev
+```
+Or via yarn
+```bash
+yarn 
+yarn run dev
 ```
 运行: `npm run dev` 命令报下面类似错误, 在项目根目录执行命令: `node .\node_modules\esbuild\install.js`。
   ```bash
@@ -100,3 +105,5 @@ npm run dev or yarn run dev
 .env.development以及.env.production文件为开发环境和生产环境的配置文件，这里的 `VITE_BUILD_PATH_PREFIX` 变量是本系统部署时（ https://lihanqiang.github.io/vue-vite-cesium-demo/ ），因为有 `/vue-vite-cesium-demo` 的缘故，需要在引用 `/public` 静态文件时，加上`/vue-vite-cesium-demo`前缀。
 
 ** 在一般情况下，你只需设置 `VITE_BUILD_PATH_PREFIX=''` ，完成后打包发布即可。**
+
+注意由于`Cesium`版本一直更替，有可能出现安装依赖报错，运行报错问题。所以在升级`Cesium`版本前，要注意`Cesium API`的变化，以免引起不必要的麻烦。

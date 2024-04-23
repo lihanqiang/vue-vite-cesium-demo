@@ -37,8 +37,13 @@ A simple webgis demo with Vue.js(v3.x), Vite and Cesium.js. You are welcomed to 
   ## Initiate the demo
   Use npm or yarn tool to build the app dependencies, enter the app root dictionary and run commands below, and you'll see it in the browser at website ```localhost:9999```.
   ```bash
-  npm install or yarn
-  npm run dev or yarn run dev
+  npm install
+  npm run dev
+  ```
+  Or via yarn
+  ```bash
+  yarn 
+  yarn run dev
   ```
   Run the command `npm run dev`, and the following occurs, try to run command `node .\node_modules\esbuild\install.js` in the root directory.
   ```bash
